@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Make</title>
+    <link rel="icon" href="https://images.mingliangstar.com/images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700;900&family=ZCOOL+XiaoWei&family=ZCOOL+KuaiLe&family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&family=Long+Cang&family=Zhi+Mang+Xing&family=Liu+Jian+Mao+Cao&family=LXGW+WenKai&family=Smiley+Sans&family=ZCOOL+KuHei&family=ZCOOL+WenYi&family=ZCOOL+CangErYuYang&family=ZCOOL+Addict&family=ZCOOL+GaoDuanHei&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="style.css">
+    <base target="_blank"><base target="_blank">
+</head>
+
+<body>
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+
+    <div class="container">
+        <div class="sidebar-nav">
+            <div class="nav-logo"><img src="https://images.mingliangstar.com/images/logo.png" alt="Eucalyptus">
+            </div>
+            <div class="nav-divider"></div>
+            <div class="nav-item active" data-tab="basic" data-tooltip="基础设置">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M3 9h18M9 21V9" />
+                </svg>
+                <span class="nav-tooltip">基础设置</span>
+            </div>
+            <div class="nav-item" data-tab="text" data-tooltip="文字内容">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 7V4h16v3M9 20h6M12 4v16" />
+                </svg>
+                <span class="nav-tooltip">文字内容</span>
+            </div>
+            <div class="nav-item" data-tab="svg" data-tooltip="图标">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v8M8 12h8" />
+                </svg>
+                <span class="nav-tooltip">图标</span>
+            </div>
+            <div class="nav-item" data-tab="config" data-tooltip="配置管理">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
+                <span class="nav-tooltip">配置管理</span>
+            </div>
+            <div class="nav-bottom">
+                  <div class="nav-divider"></div>
+                <div class="nav-item" id="resetNavBtn" data-tooltip="重置">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8M3 3v5h5"/>
+                    </svg>
+                    <span class="nav-tooltip">重置</span>
+                </div>
+                <div class="nav-item" id="downloadNavBtn" data-tooltip="下载封面">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                    <span class="nav-tooltip">下载封面</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-area" id="previewArea">
+            <div class="canvas-wrapper" id="canvasWrapper">
+                <canvas id="coverCanvas"></canvas>
+            </div>
+            <div class="size-info" id="sizeInfo">1200 x 675</div>
+        </div>
+
+        <div class="config-panel collapsed" id="configPanel">
+            <div class="config-panel-header">
+                <div class="config-panel-title" id="panelTitle">基础设置</div>
+                <button class="config-panel-close" id="panelCloseBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="config-panel-content">
+                <!-- 基础设置面板 -->
+                <div class="tab-panel active" id="tab-basic">
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                </svg></div>
+                            <span>预设模板</span>
+                        </div>
+                        <div class="preset-grid" id="presetList">
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                </svg></div>
+                            <span data-i18n="platformSize">平台尺寸</span>
+                        </div>
+                        <div class="platform-grid">
+                            <div class="platform-item active" data-w="1200" data-h="675">
+                                <div data-i18n="blogCover">博客封面</div>
+                                <div class="ratio">1200x675 · 16:9</div>
+                            </div>
+                            <div class="platform-item" data-w="900" data-h="500">
+                                <div data-i18n="wechat">公众号</div>
+                                <div class="ratio">900x500</div>
+                            </div>
+                            <div class="platform-item" data-w="800" data-h="800">
+                                <div data-i18n="xiaohongshu">小红书</div>
+                                <div class="ratio">800x800 · 1:1</div>
+                            </div>
+                            <div class="platform-item" data-w="1280" data-h="720">
+                                <div data-i18n="videoCover">视频封面</div>
+                                <div class="ratio">1280x720</div>
+                            </div>
+                            <div class="platform-item" data-w="1920" data-h="1080">
+                                <div data-i18n="pptCover">PPT 封面</div>
+                                <div class="ratio">1920x1080</div>
+                            </div>
+                            <div class="platform-item" data-w="1080" data-h="1920">
+                                <div data-i18n="douyin">抖音/竖版</div>
+                                <div class="ratio">1080x1920 · 9:16</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 2a10 10 0 0 0 0 20 10 10 0 0 0 0-20z" />
+                                </svg></div>
+                            <span data-i18n="bgSettings">背景设置</span>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="bgType">背景类型</label>
+                            <select id="bgType">
+                                <option value="gradient" data-i18n="gradientBg">渐变背景</option>
+                                <option value="solid" data-i18n="solidBg">纯色背景</option>
+                                <option value="image" data-i18n="customImage">自定义图片</option>
+
+                                <option value="mesh" data-i18n="meshBg">网格渐变</option>
+                                <option value="noise" data-i18n="noiseBg">噪点纹理</option>
+                            </select>
+                        </div>
+                        <div id="gradientControls">
+                            <div class="form-group">
+                                <label data-i18n="gradientType">渐变类型</label>
+                                <select id="gradientType">
+                                    <option value="linear" data-i18n="linear">线性渐变</option>
+                                    <option value="radial" data-i18n="radial">径向渐变</option>
+                                    <option value="conic" data-i18n="conic">圆锥渐变</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="angleControl">
+                                <label data-i18n="angle">角度</label>
+                                <input type="range" id="gradientAngle" min="0" max="360" value="135">
+                                <div class="range-value" id="angleValue">135°</div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="gradientStops">渐变节点</label>
+                                <div class="color-preview-bar">
+                                    <div class="color-bar" id="colorBar1" data-color="#667eea"
+                                        style="background:#667eea"></div>
+                                    <div class="color-bar" id="colorBar2" data-color="#764ba2"
+                                        style="background:#764ba2"></div>
+                                    <div class="color-bar" id="colorBar3" data-color="#f093fb"
+                                        style="background:#f093fb;display:none;"></div>
+                                </div>
+                                <div style="display:flex;gap:8px;margin-top:8px;">
+                                    <button class="btn btn-secondary btn-small" id="addColorStop" style="flex:1;"><span
+                                            data-i18n="addStop">+ 添加节点</span></button>
+                                    <button class="btn btn-secondary btn-small" id="removeColorStop"
+                                        style="flex:1;"><span data-i18n="removeStop">- 移除节点</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="solidControls" style="display:none;">
+                            <div class="form-group">
+                                <label data-i18n="bgColor">背景颜色</label>
+                                <div class="color-picker-wrapper"
+                                    data-color-target="solidColor">
+                                    <div class="color-preview-circle" id="solidColorPreview" style="background:#1a1a1a">
+                                    </div>
+                                    <span class="color-value-text" id="solidColorText">#1A1A1A</span>
+                                    <input type="color" id="solidColor" value="#1a1a1a">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="imageControls" style="display:none;">
+                            <div id="bgImagePreviewContainer" style="display:none;">
+                                <img class="bg-image-preview" id="bgImagePreview" src="" alt="背景预览">
+                                <div class="bg-image-actions">
+                                    <button class="btn btn-secondary btn-small" id="removeBgImageBtn"><span
+                                            data-i18n="remove">移除</span></button>
+                                    <button class="btn btn-secondary btn-small" id="replaceBgImageBtn"><span
+                                            data-i18n="replace">更换</span></button>
+                                </div>
+                            </div>
+                            <div class="upload-area" id="bgUploadArea">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                                </svg>
+                                <p data-i18n="uploadBg">点击上传背景图片</p>
+                                <p class="upload-hint" data-i18n="uploadHint">支持 JPG、PNG、WebP 格式</p>
+                            </div>
+                            <input type="file" id="bgImageInput" accept="image/*" style="display:none;">
+                            <div class="form-group" style="margin-top:12px;">
+                                <label data-i18n="bgBlur">背景模糊度</label>
+                                <input type="range" id="bgBlur" min="0" max="20" value="0">
+                                <div class="range-value" id="bgBlurValue">0px</div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="bgDarken">背景暗化</label>
+                                <input type="range" id="bgDarken" min="0" max="80" value="0">
+                                <div class="range-value" id="bgDarkenValue">0%</div>
+                            </div>
+                        </div>
+                        <div id="meshControls" style="display:none;">
+                            <div class="form-group">
+                                <label data-i18n="meshColors">网格颜色 (4个节点)</label>
+                                <div class="color-preview-bar">
+                                    <div class="color-bar" id="meshColor1" data-color="#667eea"
+                                        style="background:#667eea"></div>
+                                    <div class="color-bar" id="meshColor2" data-color="#764ba2"
+                                        style="background:#764ba2"></div>
+                                    <div class="color-bar" id="meshColor3" data-color="#f093fb"
+                                        style="background:#f093fb"></div>
+                                    <div class="color-bar" id="meshColor4" data-color="#f5576c"
+                                        style="background:#f5576c"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="meshComplexity">复杂度</label>
+                                <input type="range" id="meshComplexity" min="3" max="8" value="5">
+                                <div class="range-value" id="meshComplexityValue">5</div>
+                            </div>
+                        </div>
+                        <div id="noiseControls" style="display:none;">
+                            <div class="form-group">
+                                <label data-i18n="noiseIntensity">噪点强度</label>
+                                <input type="range" id="noiseIntensity" min="5" max="50" value="20">
+                                <div class="range-value" id="noiseIntensityValue">20%</div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="noiseScale">噪点颗粒</label>
+                                <input type="range" id="noiseScale" min="1" max="10" value="3">
+                                <div class="range-value" id="noiseScaleValue">3</div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="noiseColor">噪点颜色</label>
+                                <div class="color-picker-wrapper"
+                                    data-color-target="noiseColor">
+                                    <div class="color-preview-circle" id="noiseColorPreview" style="background:#ffffff">
+                                    </div>
+                                    <span class="color-value-text" id="noiseColorText">#FFFFFF</span>
+                                    <input type="color" id="noiseColor" value="#ffffff">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="noiseBgColor">背景底色</label>
+                                <div class="color-picker-wrapper"
+                                    data-color-target="noiseBgColor">
+                                    <div class="color-preview-circle" id="noiseBgColorPreview"
+                                        style="background:#0a0a0a"></div>
+                                    <span class="color-value-text" id="noiseBgColorText">#0A0A0A</span>
+                                    <input type="color" id="noiseBgColor" value="#0a0a0a">
+                                </div>
+                            </div>
+                        </div>
+                                            <div class="form-group" style="margin-top:16px;">
+                            <button class="btn btn-primary" id="randomColorBtn" style="width:100%;">
+                                <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">
+                                    <path d="M16 3h3v3h-3zM8 3h3v3H8zM5 8h3v3H5zM19 8h-3v3h3zM5 13h3v3H5zM19 13h-3v3h3zM8 18h3v3H8zM16 18h3v3h-3z"/>
+                                </svg>
+                                <span data-i18n="randomColor">随机配色</span>
+                            </button>
+                        </div>
+</div>
+                </div>
+                <!-- 文字内容面板 -->
+                <div class="tab-panel" id="tab-text">
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                </svg></div>
+                            <span data-i18n="mainTitle">主标题</span>
+                        </div>
+                        <div class="form-group"><input type="text" id="mainTitle" value="Hello World"
+                                placeholder="输入主标题"></div>
+                        <div class="form-group">
+                            <label data-i18n="fontFamily">字体</label>
+                            <select id="mainTitleFontSelect" class="font-select">
+                                <option value="'Noto Sans SC', sans-serif">思源黑体</option>
+                                <option value="'Noto Serif SC', serif">思源宋体</option>
+                                <option value="'ZCOOL XiaoWei', serif">站酷小薇体</option>
+                                <option value="'ZCOOL KuaiLe', cursive">站酷快乐体</option>
+                                <option value="'Ma Shan Zheng', cursive">马善政毛笔</option>
+                                <option value="'ZCOOL QingKe HuangYou', sans-serif">站酷黄油体</option>
+                                <option value="'Long Cang', cursive">龙藏体</option>
+                                <option value="'Zhi Mang Xing', cursive">知芒星</option>
+                                <option value="'Liu Jian Mao Cao', cursive">刘辩毛草</option>
+                                <option value="'LXGW WenKai', serif">霞鹜文楷</option>
+                                <option value="'Smiley Sans', sans-serif">得意黑</option>
+                                <option value="'ZCOOL KuHei', sans-serif">站酷酷黑</option>
+                                <option value="'ZCOOL WenYi', serif">站酷文艺</option>
+                                <option value="'ZCOOL CangErYuYang', cursive">站酷仓耳渔阳</option>
+                                <option value="'ZCOOL Addict', sans-serif">站酷 addicts</option>
+                                <option value="'ZCOOL GaoDuanHei', sans-serif">站酷高端黑</option>
+                                <option value="Georgia, serif">Georgia</option>
+                                <option value="Arial, sans-serif">Arial</option>
+                            </select>
+                        </div>
+                        <div class="two-col">
+                            <div class="form-group">
+                                <label data-i18n="fontSize">字号</label>
+                                <input type="range" id="mainTitleSize" min="20" max="150" value="72">
+                                <div class="range-value" id="mainTitleSizeValue">72px</div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="color">颜色</label>
+                                <div class="color-picker-wrapper"
+                                    data-color-target="mainTitleColor">
+                                    <div class="color-preview-circle" id="mainTitleColorPreview"
+                                        style="background:#ffffff"></div>
+                                    <span class="color-value-text" id="mainTitleColorText">#FFFFFF</span>
+                                    <input type="color" id="mainTitleColor" value="#ffffff">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><span data-i18n="position">位置</span> <span style="color:#555;font-size:11px;"
+                                    data-i18n="dragHint">(拖拽画布调整)</span></label>
+                            <div class="pos-display" id="mainTitlePos">X: 600 | Y: 304</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+                                </svg></div>
+                            <span data-i18n="subTitle">副标题</span>
+                        </div>
+                        <div class="form-group"><input type="text" id="subTitle" value="构建你的精彩封面" placeholder="输入副标题">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="fontFamily">字体</label>
+                            <select id="subTitleFontSelect" class="font-select">
+                                <option value="'Noto Sans SC', sans-serif">思源黑体</option>
+                                <option value="'Noto Serif SC', serif">思源宋体</option>
+                                <option value="'ZCOOL XiaoWei', serif">站酷小薇体</option>
+                                <option value="'ZCOOL KuaiLe', cursive">站酷快乐体</option>
+                                <option value="'Ma Shan Zheng', cursive">马善政毛笔</option>
+                                <option value="'ZCOOL QingKe HuangYou', sans-serif">站酷黄油体</option>
+                                <option value="'Long Cang', cursive">龙藏体</option>
+                                <option value="'Zhi Mang Xing', cursive">知芒星</option>
+                                <option value="'Liu Jian Mao Cao', cursive">刘辩毛草</option>
+                                <option value="'LXGW WenKai', serif">霞鹜文楷</option>
+                                <option value="'Smiley Sans', sans-serif">得意黑</option>
+                                <option value="'ZCOOL KuHei', sans-serif">站酷酷黑</option>
+                                <option value="'ZCOOL WenYi', serif">站酷文艺</option>
+                                <option value="'ZCOOL CangErYuYang', cursive">站酷仓耳渔阳</option>
+                                <option value="'ZCOOL Addict', sans-serif">站酷 addicts</option>
+                                <option value="'ZCOOL GaoDuanHei', sans-serif">站酷高端黑</option>
+                                <option value="Georgia, serif">Georgia</option>
+                                <option value="Arial, sans-serif">Arial</option>
+                            </select>
+                        </div>
+                        <div class="two-col">
+                            <div class="form-group">
+                                <label data-i18n="fontSize">字号</label>
+                                <input type="range" id="subTitleSize" min="12" max="80" value="28">
+                                <div class="range-value" id="subTitleSizeValue">28px</div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="color">颜色</label>
+                                <div class="color-picker-wrapper"
+                                    data-color-target="subTitleColor">
+                                    <div class="color-preview-circle" id="subTitleColorPreview"
+                                        style="background:#ffffff"></div>
+                                    <span class="color-value-text" id="subTitleColorText">#FFFFFF</span>
+                                    <input type="color" id="subTitleColor" value="#ffffff">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="opacity">透明度</label>
+                            <input type="range" id="subTitleOpacity" min="0" max="100" value="70">
+                            <div class="range-value" id="subTitleOpacityValue">70%</div>
+                        </div>
+                        <div class="form-group">
+                            <label><span data-i18n="position">位置</span> <span style="color:#555;font-size:11px;"
+                                    data-i18n="dragHint">(拖拽画布调整)</span></label>
+                            <div class="pos-display" id="subTitlePos">X: 600 | Y: 378</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg></div>
+                            <span data-i18n="author">作者</span>
+                        </div>
+                        <div class="form-group"><input type="text" id="author" value="@eucalyptuse" placeholder="输入作者名">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="fontFamily">字体</label>
+                            <select id="authorFontSelect" class="font-select">
+                                <option value="'Noto Sans SC', sans-serif">思源黑体</option>
+                                <option value="'Noto Serif SC', serif">思源宋体</option>
+                                <option value="'ZCOOL XiaoWei', serif">站酷小薇体</option>
+                                <option value="'ZCOOL KuaiLe', cursive">站酷快乐体</option>
+                                <option value="'Ma Shan Zheng', cursive">马善政毛笔</option>
+                                <option value="'ZCOOL QingKe HuangYou', sans-serif">站酷黄油体</option>
+                                <option value="'Long Cang', cursive">龙藏体</option>
+                                <option value="'Zhi Mang Xing', cursive">知芒星</option>
+                                <option value="'Liu Jian Mao Cao', cursive">刘辩毛草</option>
+                                <option value="'LXGW WenKai', serif">霞鹜文楷</option>
+                                <option value="'Smiley Sans', sans-serif">得意黑</option>
+                                <option value="'ZCOOL KuHei', sans-serif">站酷酷黑</option>
+                                <option value="'ZCOOL WenYi', serif">站酷文艺</option>
+                                <option value="'ZCOOL CangErYuYang', cursive">站酷仓耳渔阳</option>
+                                <option value="'ZCOOL Addict', sans-serif">站酷 addicts</option>
+                                <option value="'ZCOOL GaoDuanHei', sans-serif">站酷高端黑</option>
+                                <option value="Georgia, serif">Georgia</option>
+                                <option value="Arial, sans-serif">Arial</option>
+                            </select>
+                        </div>
+                        <div class="two-col">
+                            <div class="form-group">
+                                <label data-i18n="fontSize">字号</label>
+                                <input type="range" id="authorSize" min="10" max="60" value="20">
+                                <div class="range-value" id="authorSizeValue">20px</div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="color">颜色</label>
+                                <div class="color-picker-wrapper"
+                                    data-color-target="authorColor">
+                                    <div class="color-preview-circle" id="authorColorPreview"
+                                        style="background:#ffffff"></div>
+                                    <span class="color-value-text" id="authorColorText">#FFFFFF</span>
+                                    <input type="color" id="authorColor" value="#ffffff">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="opacity">透明度</label>
+                            <input type="range" id="authorOpacity" min="0" max="100" value="50">
+                            <div class="range-value" id="authorOpacityValue">50%</div>
+                        </div>
+                        <div class="form-group">
+                            <label><span data-i18n="position">位置</span> <span style="color:#555;font-size:11px;"
+                                    data-i18n="dragHint">(拖拽画布调整)</span></label>
+                            <div class="pos-display" id="authorPos">X: 600 | Y: 580</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <path d="M12 5v14M5 12h14" />
+                                </svg></div>
+                            <span data-i18n="customTexts">自定义文字</span>
+                        </div>
+                        <div id="customTextList" class="custom-text-list"></div>
+                        <button class="btn btn-primary" id="addCustomTextBtn" style="margin-top:8px;">
+                            <svg viewBox="0 0 24 24"
+                                style="width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                            <span data-i18n="addCustomText">添加自定义文字</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- 图标面板 -->
+                <div class="tab-panel" id="tab-svg">
+                    <div class="hint-text">
+                        <span data-i18n="svgHint">💡 使用步骤：<br>1. 访问 yesicon.app 搜索图标<br>2. 点击图标 → 复制 SVG 代码<br>3.
+                            粘贴到下方输入框，点击添加<br>4. 或上传 .svg 文件</span>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <line x1="12" y1="5" x2="12" y2="19" />
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                </svg></div>
+                            <span data-i18n="addIcon">添加图标</span>
+                        </div>
+                        <div class="form-group"><textarea id="svgInput"
+                                placeholder='<svg viewBox="0 0 24 24">...</svg>'></textarea></div>
+                        <button class="btn btn-primary" id="addSvgBtn">
+                            <svg viewBox="0 0 24 24"
+                                style="width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                            <span data-i18n="add">添加图标</span>
+                        </button>
+                        <div class="upload-area" id="svgUploadArea" style="margin-top:12px;margin-bottom:0;">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                            </svg>
+                            <p data-i18n="uploadSvg">点击上传 SVG 文件</p>
+                            <p class="upload-hint" data-i18n="uploadSvgHint">支持 .svg 格式</p>
+                        </div>
+                        <input type="file" id="svgFileInput" accept=".svg" style="display:none;">
+                    </div>
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <path d="M9 11l3 3L22 4" />
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                                </svg></div>
+                            <span data-i18n="iconList">图标列表</span>
+                        </div>
+                        <div id="svgList" class="svg-list">
+                            <div class="empty-state" data-i18n="noIcons">暂无图标<br>请从 yesicon.app 添加 SVG</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 字体样式面板 -->
+                <!-- 配置管理面板 -->
+                <div class="tab-panel" id="tab-config">
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                    <polyline points="17 21 17 13 7 13 7 21" />
+                                    <polyline points="7 3 7 8 15 8" />
+                                </svg></div>
+                            <span data-i18n="configManage">配置管理</span>
+                        </div>
+                        <p style="font-size:12px;color:#888;margin-bottom:12px;line-height:1.6;" data-i18n="configDesc">
+                            导出当前所有设置为 JSON 文件，或导入之前保存的配置。</p>
+                        <div class="config-area">
+                            <button class="btn btn-primary" id="exportBtn">
+                                <svg viewBox="0 0 24 24"
+                                    style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                                <span data-i18n="export">导出配置</span>
+                            </button>
+                            <button class="btn btn-secondary" id="importBtn">
+                                <svg viewBox="0 0 24 24"
+                                    style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                                <span data-i18n="import">导入配置</span>
+                            </button>
+                        </div>
+                        <input type="file" id="importFileInput" accept=".json">
+                    </div>
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="icon"><svg viewBox="0 0 24 24">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                    <circle cx="8.5" cy="8.5" r="1.5" />
+                                    <circle cx="15.5" cy="8.5" r="1.5" />
+                                    <polyline points="9 16 12 13 15 16" />
+                                </svg></div>
+                            <span data-i18n="downloadSettings">下载设置</span>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="defaultFormat">默认下载格式</label>
+                            <select id="defaultFormat">
+                                <option value="png" data-i18n="png">PNG (无损，推荐)</option>
+                                <option value="jpeg" data-i18n="jpeg">JPEG (有损压缩，体积小)</option>
+                                <option value="webp" data-i18n="webp">WebP (现代格式，兼容性好)</option>
+                                <option value="avif" data-i18n="avif">AVIF (最新格式，体积最小)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="qualityControl">
+                            <label data-i18n="quality">JPEG/WebP/AVIF 质量</label>
+                            <input type="range" id="downloadQuality" min="0.1" max="1" step="0.05" value="0.92">
+                            <div class="range-value" id="downloadQualityValue">92%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Confirm Dialog -->
+    <div class="confirm-overlay" id="confirmOverlay">
+        <div class="confirm-dialog">
+            <div class="confirm-icon">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    <line x1="12" y1="9" x2="12" y2="13" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+            </div>
+            <div class="confirm-title" id="confirmTitle">确认操作</div>
+            <div class="confirm-message" id="confirmMessage">确定要执行此操作吗？</div>
+            <div class="confirm-actions">
+                <button class="btn btn-secondary" id="confirmCancel">取消</button>
+                <button class="btn btn-primary" id="confirmOk">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="downloadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" data-i18n="downloadFormat">选择下载格式</div>
+                <button class="modal-close-btn" onclick="closeDownloadModal()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-options">
+                    <div class="modal-option selected" onclick="selectFormat('png')">
+                        <input type="radio" name="format" id="fmt-png" value="png" checked>
+                        <label class="modal-option-label" for="fmt-png">
+                            <span class="label-title">PNG</span>
+                            <span class="label-desc" data-i18n="pngDesc">无损压缩，透明背景，文件较大</span>
+                        </label>
+                    </div>
+                    <div class="modal-option" onclick="selectFormat('jpeg')">
+                        <input type="radio" name="format" id="fmt-jpeg" value="jpeg">
+                        <label class="modal-option-label" for="fmt-jpeg">
+                            <span class="label-title">JPEG</span>
+                            <span class="label-desc" data-i18n="jpegDesc">有损压缩，体积较小，不支持透明</span>
+                        </label>
+                    </div>
+                    <div class="modal-option" onclick="selectFormat('webp')">
+                        <input type="radio" name="format" id="fmt-webp" value="webp">
+                        <label class="modal-option-label" for="fmt-webp">
+                            <span class="label-title">WebP</span>
+                            <span class="label-desc" data-i18n="webpDesc">现代格式，压缩率高，兼容性好</span>
+                        </label>
+                    </div>
+                    <div class="modal-option" onclick="selectFormat('avif')">
+                        <input type="radio" name="format" id="fmt-avif" value="avif">
+                        <label class="modal-option-label" for="fmt-avif">
+                            <span class="label-title">AVIF</span>
+                            <span class="label-desc" data-i18n="avifDesc">最新格式，体积最小，浏览器兼容性有限</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-quality-section" id="modalQualitySection" style="display:none;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label data-i18n="compressQuality">压缩质量</label>
+                        <input type="range" id="modalQuality" min="0.1" max="1" step="0.05" value="0.92">
+                        <div class="range-value" id="modalQualityValue">92%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeDownloadModal()" data-i18n="cancel">取消</button>
+                <button class="btn btn-primary" onclick="confirmDownload()" data-i18n="confirmDownload">确认下载</button>
+            </div>
+        </div>
+    </div>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div data-i18n="generating">正在生成...</div>
+    </div>
+
+    <!-- ICP Footer -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
