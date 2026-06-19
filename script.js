@@ -1,2057 +1,2242 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
-    background: #0f0f0f;
-    color: #fff;
-    min-height: 100vh;
-    overflow: hidden;
-}
-
-.container {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-}
-
-.sidebar-nav {
-    width: 64px;
-    background: #161616;
-    border-right: 1px solid #252525;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px 0;
-    flex-shrink: 0;
-    z-index: 10;
-}
-
-.nav-logo {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    overflow: hidden;
-}
-
-.nav-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.nav-divider {
-    width: 32px;
-    height: 1px;
-    background: #252525;
-    margin-bottom: 12px;
-}
-
-.nav-item {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-bottom: 4px;
-    position: relative;
-    color: #666;
-}
-
-.nav-item:hover {
-    background: #1e1e1e;
-    color: #999;
-}
-
-.nav-item.active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
-    color: #a5b4fc;
-}
-
-.nav-item.active::before {
-    content: '';
-    position: absolute;
-    left: -16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3px;
-    height: 20px;
-    background: linear-gradient(180deg, #667eea, #764ba2);
-    border-radius: 0 3px 3px 0;
-}
-
-.nav-item svg {
-    width: 22px;
-    height: 22px;
-    stroke-width: 1.8;
-    fill: none;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.nav-tooltip {
-    position: absolute;
-    left: 56px;
-    background: #1e1e1e;
-    border: 1px solid #333;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 12px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-    z-index: 100;
-}
-
-.nav-item:hover .nav-tooltip {
-    opacity: 1;
-}
-
-.nav-bottom {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-}
-
-.config-panel {
-    width: 340px;
-    background: #1a1a1a;
-    border-left: 1px solid #252525;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    transform: translateX(0);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    z-index: 5;
-    overflow: hidden;
-}
-
-.config-panel.collapsed {
-    width: 0;
-    border-left: none;
-}
-
-.config-panel-header {
-    padding: 20px 20px 12px;
-    border-bottom: 1px solid #252525;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-width: 340px;
-}
-
-.config-panel-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: #fff;
-}
-
-.config-panel-close {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    border: none;
-    background: #252525;
-    color: #888;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.config-panel-close:hover {
-    background: #333;
-    color: #fff;
-}
-
-.config-panel-close svg {
-    width: 16px;
-    height: 16px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.config-panel-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px;
-    scrollbar-width: thin;
-    scrollbar-color: #333 transparent;
-    min-width: 340px;
-}
-
-.config-panel-content::-webkit-scrollbar {
-    width: 5px;
-}
-
-.config-panel-content::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.config-panel-content::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 3px;
-}
-
-.config-panel-content::-webkit-scrollbar-thumb:hover {
-    background: #444;
-}
-
-.preview-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-    background: #0a0a0a;
-    position: relative;
-    transition: margin-right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    min-width: 0;
-}
-
-.canvas-wrapper {
-    position: relative;
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9);
-    border-radius: 16px;
-    overflow: visible;
-    transition: transform 0.3s;
-}
-
-.canvas-wrapper:hover {
-    transform: scale(1.01);
-}
-
-#coverCanvas {
-    display: block;
-    border-radius: 16px;
-    cursor: crosshair;
-}
-
-.size-info {
-    margin-top: 16px;
-    font-size: 12px;
-    color: #444;
-    font-family: monospace;
-}
-
-.drag-hint {
-    margin-top: 10px;
-    font-size: 12px;
-    color: #333;
-    margin-bottom: 80px;
-}
-
-.bottom-bar {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    background: rgba(22, 22, 22, 0.9);
-    backdrop-filter: blur(20px);
-    border: 1px solid #2a2a2a;
-    border-radius: 14px;
-    padding: 8px;
-    z-index: 20;
-}
-
-.bottom-btn {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-}
-
-.bottom-btn svg {
-    width: 16px;
-    height: 16px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.bottom-btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #fff;
-}
-
-.bottom-btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-.bottom-btn-secondary {
-    background: #252525;
-    color: #aaa;
-}
-
-.bottom-btn-secondary:hover {
-    background: #333;
-    color: #fff;
-}
-
-.form-group {
-    margin-bottom: 16px;
-}
-
-.form-group:last-child {
-    margin-bottom: 0;
-}
-
-label {
-    display: block;
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 8px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-}
-
-input[type="text"],
-input[type="number"],
-select,
-textarea {
-    width: 100%;
-    padding: 10px 12px;
-    background: #242424;
-    border: 1px solid #333;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 13px;
-    outline: none;
-    transition: all 0.2s;
-    font-family: inherit;
-}
-
-textarea {
-    min-height: 100px;
-    resize: vertical;
-    font-family: monospace;
-    font-size: 11px;
-    line-height: 1.5;
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus,
-select:focus,
-textarea:focus {
-    border-color: #667eea;
-    background: #2a2a2a;
-}
-
-input[type="range"] {
-    width: 100%;
-    height: 6px;
-    -webkit-appearance: none;
-    background: #333;
-    border-radius: 3px;
-    outline: none;
-    cursor: pointer;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
-    background: #667eea;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid #1a1a1a;
-    transition: transform 0.15s, box-shadow 0.15s;
-}
-
-input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.3);
-}
-
-input[type="range"]::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    background: #667eea;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid #1a1a1a;
-}
-
-.range-value {
-    text-align: right;
-    font-size: 11px;
-    color: #667eea;
-    margin-top: 4px;
-    font-weight: 600;
-}
-
-.color-picker-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #242424;
-    border: 1px solid #333;
-    border-radius: 10px;
-    padding: 6px 10px;
-    transition: all 0.2s;
-    cursor: pointer;
-}
-
-.color-picker-wrapper:hover {
-    border-color: #444;
-}
-
-.color-picker-wrapper:focus-within {
-    border-color: #667eea;
-    background: #2a2a2a;
-}
-
-.color-preview-circle {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 2px solid #444;
-    flex-shrink: 0;
-    transition: transform 0.2s;
-}
-
-.color-preview-circle:hover {
-    transform: scale(1.1);
-}
-
-.color-value-text {
-    font-family: monospace;
-    font-size: 12px;
-    color: #888;
-    flex: 1;
-    text-transform: uppercase;
-}
-
-input[type="color"] {
-    width: 0;
-    height: 0;
-    padding: 0;
-    border: none;
-    visibility: hidden;
-    position: absolute;
-}
-
-.card {
-    background: #242424;
-    border-radius: 14px;
-    padding: 16px;
-    border: 1px solid #2a2a2a;
-    margin-bottom: 12px;
-}
-
-.card-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.card-title .icon {
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.card-title .icon svg {
-    width: 100%;
-    height: 100%;
-    stroke: #a5b4fc;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.btn {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #fff;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-}
-
-.btn-secondary {
-    background: #333;
-    color: #fff;
-}
-
-.btn-secondary:hover {
-    background: #444;
-}
-
-.btn-success {
-    background: linear-gradient(135deg, #43e97b, #38f9d7);
-    color: #0a0a0a;
-}
-
-.btn-success:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(67, 233, 123, 0.3);
-}
-
-.btn-danger {
-    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-    color: #fff;
-}
-
-.btn-small {
-    padding: 6px 12px;
-    font-size: 11px;
-    border-radius: 8px;
-    width: auto;
-}
-
-.platform-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-}
-
-.platform-item {
-    padding: 12px 8px;
-    background: #1a1a1a;
-    border: 2px solid #333;
-    border-radius: 12px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 12px;
-    transition: all 0.2s;
-    user-select: none;
-}
-
-.platform-item:hover {
-    border-color: #667eea;
-    transform: translateY(-2px);
-}
-
-.platform-item.active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
-    border-color: #667eea;
-    color: #a5b4fc;
-}
-
-.platform-item .ratio {
-    font-size: 10px;
-    color: #555;
-    margin-top: 4px;
-}
-
-.platform-item.active .ratio {
-    color: #818cf8;
-}
-
-.preset-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-}
-
-.preset-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 6px;
-    background: #1a1a1a;
-    border: 2px solid #333;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 11px;
-    color: #888;
-}
-
-.preset-item:hover {
-    border-color: #667eea;
-    transform: translateY(-2px);
-}
-
-.preset-preview {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    border: 1px solid #333;
-}
-
-.color-preview-bar {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-    padding: 10px;
-    background: #1a1a1a;
-    border-radius: 12px;
-    border: 1px solid #2a2a2a;
-    position: relative;
-    flex-wrap: wrap;
-}
-
-.color-bar {
-    flex: 1;
-    height: 48px;
-    border-radius: 10px;
-    border: 2px solid transparent;
-    transition: all 0.3s;
-    cursor: pointer;
-    position: relative;
-    overflow: visible;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    min-width: 60px;
-}
-
-.color-bar:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-}
-
-.color-bar::after {
-    content: attr(data-color);
-    position: absolute;
-    bottom: 4px;
-    right: 8px;
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.8);
-    font-family: monospace;
-    text-transform: uppercase;
-    font-weight: 600;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-.color-bar::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), transparent);
-    border-radius: 10px 10px 0 0;
-}
-
-.svg-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.svg-item {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 12px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.svg-box-preview {
-    width: 48px;
-    height: 48px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    overflow: hidden;
-}
-
-.svg-box-preview img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-}
-
-.svg-info {
-    flex: 1;
-    font-size: 11px;
-    color: #888;
-    line-height: 1.6;
-}
-
-.svg-actions {
-    display: flex;
-    gap: 6px;
-}
-
-.hint-text {
-    font-size: 12px;
-    color: #666;
-    line-height: 1.7;
-    margin-bottom: 12px;
-    padding: 12px;
-    background: #1a1a1a;
-    border-radius: 10px;
-    border: 1px dashed #333;
-}
-
-.hint-text a {
-    color: #667eea;
-    text-decoration: none;
-}
-
-.hint-text a:hover {
-    text-decoration: underline;
-}
-
-.empty-state {
-    text-align: center;
-    padding: 30px 20px;
-    color: #444;
-    font-size: 13px;
-}
-
-.pos-display {
-    font-size: 11px;
-    color: #555;
-    font-family: monospace;
-    margin-top: 4px;
-    padding: 6px 10px;
-    background: #1a1a1a;
-    border-radius: 8px;
-    display: inline-block;
-}
-
-.config-area {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.config-area .btn {
-    flex: 1;
-    font-size: 12px;
-    padding: 8px;
-}
-
-#importFileInput {
-    display: none;
-}
-
-.upload-area {
-    border: 2px dashed #333;
-    border-radius: 12px;
-    padding: 24px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: 12px;
-}
-
-.upload-area:hover {
-    border-color: #667eea;
-    background: rgba(102, 126, 234, 0.05);
-}
-
-.upload-area svg {
-    width: 32px;
-    height: 32px;
-    stroke: #555;
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    margin-bottom: 8px;
-}
-
-.upload-area p {
-    font-size: 12px;
-    color: #666;
-}
-
-.upload-area .upload-hint {
-    font-size: 11px;
-    color: #444;
-    margin-top: 4px;
-}
-
-.bg-image-preview {
-    width: 100%;
-    height: 120px;
-    border-radius: 10px;
-    object-fit: cover;
-    border: 2px solid #333;
-    margin-bottom: 12px;
-}
-
-.bg-image-actions {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
-}
-
-.bg-image-actions .btn {
-    flex: 1;
-    font-size: 12px;
-    padding: 8px;
-}
-
-.loading {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.85);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.loading.show {
-    display: flex;
-}
-
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid #333;
-    border-top-color: #667eea;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+// ===== I18N =====
+const i18n = {
+    zh: {
+        randomColor: '随机配色', reset: '重置', download: '下载封面',
+        basicSettings: '基础设置', textContent: '文字内容', icons: '图标',
+        presetTemplates: '预设模板',
+        platformSize: '平台尺寸', blogCover: '博客封面', wechat: '公众号',
+        xiaohongshu: '小红书', videoCover: '视频封面', pptCover: 'PPT 封面',
+        douyin: '抖音/竖版', bgSettings: '背景设置', bgType: '背景类型',
+        gradientBg: '渐变背景', solidBg: '纯色背景', customImage: '自定义图片',
+        meshBg: '网格渐变', noiseBg: '噪点纹理',
+        gradientType: '渐变类型', linear: '线性渐变', radial: '径向渐变', conic: '圆锥渐变',
+        angle: '角度', bgColor: '背景颜色', uploadBg: '点击上传背景图片',
+        uploadHint: '支持 JPG、PNG、WebP 格式', bgBlur: '背景模糊度',
+        bgDarken: '背景暗化', remove: '移除', replace: '更换',
+        mainTitle: '主标题', subTitle: '副标题', author: '作者',
+        fontSize: '字号', color: '颜色', fontFamily: '字体', position: '位置',
+        dragHint: '(拖拽画布调整)', opacity: '透明度',
+        addIcon: '添加图标', add: '添加图标', iconList: '图标列表',
+        noIcons: '暂无图标<br>请从 <a href="https://yesicon.app" target="_blank" rel="noopener noreferrer">yesicon.app</a> 添加 SVG',
+        uploadSvg: '点击上传 SVG 文件', uploadSvgHint: '支持 .svg 格式',
+        svgHint: '💡 使用步骤：<br>1. 访问 <a href="https://yesicon.app" target="_blank" rel="noopener noreferrer">yesicon.app</a> 搜索图标<br>2. 点击图标 → 复制 SVG 代码<br>3. 粘贴到下方输入框，点击添加<br>4. 或上传 .svg 文件',
+        notoSans: '思源黑体', notoSerif: '思源宋体',
+        xiaowei: '站酷小薇体', kuaile: '站酷快乐体', mashan: '马善政毛笔',
+        huangyou: '站酷庆科黄油体', longcang: '龙苍手书', zhimang: '志莽行书',
+        liujian: '刘建毛草', lxgw: '霞鹜文楷', smiley: '得意黑',
+        kuhei: '站酷酷黑', wenyi: '站酷文艺体', canger: '站酷仓耳渔阳',
+        addict: '站酷庆科上瘾体', gaoduan: '站酷高端黑',
+        systemFont: '系统默认', georgia: 'Georgia 衬线',
+        arial: 'Arial 无衬线', configManage: '配置管理',
+        configDesc: '导出当前所有设置为 JSON 文件，或导入之前保存的配置。',
+        export: '导出配置', import: '导入配置', downloadSettings: '下载设置',
+        defaultFormat: '默认下载格式', png: 'PNG (无损，推荐)',
+        jpeg: 'JPEG (有损压缩，体积小)', webp: 'WebP (现代格式，兼容性好)',
+        quality: 'JPEG/WebP 质量',
+        downloadFormat: '选择下载格式', pngDesc: '无损压缩，透明背景，文件较大',
+        jpegDesc: '有损压缩，体积较小，不支持透明',
+        webpDesc: '现代格式，压缩率高，兼容性好',
+        compressQuality: '压缩质量', cancel: '取消', confirmDownload: '确认下载',
+        generating: '正在生成...', resetConfirm: '确定要重置所有设置吗？此操作不可撤销。',
+        resetTitle: '确认重置', configImported: '配置导入成功！',
+        invalidConfig: '配置文件无效', invalidSvg: '请输入有效的 SVG 代码',
+        exportSuccess: '配置导出成功', importSuccess: '配置导入成功',
+        downloadSuccess: '封面下载成功', resetSuccess: '已重置所有设置',
+        customSize: '自定义尺寸', applySize: '应用尺寸',
+        gradientStops: '渐变节点', addStop: '+ 添加节点', removeStop: '- 移除节点',
+        meshColors: '网格颜色 (4个节点)', meshComplexity: '复杂度',
+        noiseIntensity: '噪点强度', noiseScale: '噪点颗粒', noiseColor: '噪点颜色', noiseBgColor: '背景底色',
+        customTexts: '自定义文字', addCustomText: '添加自定义文字'
+    }
+
+
+,
+    en: {
+        randomColor: 'Random Color', reset: 'Reset', download: 'Download',
+        basicSettings: 'Basic Settings', textContent: 'Text Content', icons: 'Icons',
+        presetTemplates: 'Preset Templates',
+        platformSize: 'Platform Size', blogCover: 'Blog Cover', wechat: 'WeChat',
+        xiaohongshu: 'Xiaohongshu', videoCover: 'Video Cover', pptCover: 'PPT Cover',
+        douyin: 'Douyin/Portrait', bgSettings: 'Background', bgType: 'Background Type',
+        gradientBg: 'Gradient', solidBg: 'Solid Color', customImage: 'Custom Image',
+        meshBg: 'Mesh Gradient', noiseBg: 'Noise Texture',
+        gradientType: 'Gradient Type', linear: 'Linear', radial: 'Radial', conic: 'Conic',
+        angle: 'Angle', bgColor: 'Background Color', uploadBg: 'Click to upload background',
+        uploadHint: 'Supports JPG, PNG, WebP', bgBlur: 'Background Blur',
+        bgDarken: 'Background Darken', remove: 'Remove', replace: 'Replace',
+        mainTitle: 'Main Title', subTitle: 'Subtitle', author: 'Author',
+        fontSize: 'Font Size', color: 'Color', fontFamily: 'Font', position: 'Position',
+        dragHint: '(Drag on canvas)', opacity: 'Opacity',
+        addIcon: 'Add Icon', add: 'Add Icon', iconList: 'Icon List',
+        noIcons: 'No icons yet<br>Add SVG from <a href="https://yesicon.app" target="_blank" rel="noopener noreferrer">yesicon.app</a>',
+        uploadSvg: 'Click to upload SVG file', uploadSvgHint: 'Supports .svg format',
+        svgHint: '💡 Steps:<br>1. Visit <a href="https://yesicon.app" target="_blank" rel="noopener noreferrer">yesicon.app</a><br>2. Copy SVG code<br>3. Paste below and add<br>4. Or upload .svg file',
+        notoSans: 'Noto Sans SC', notoSerif: 'Noto Serif SC',
+        xiaowei: 'ZCOOL XiaoWei', kuaile: 'ZCOOL KuaiLe', mashan: 'Ma Shan Zheng',
+        huangyou: 'ZCOOL HuangYou', longcang: 'Long Cang', zhimang: 'Zhi Mang Xing',
+        liujian: 'Liu Jian Mao Cao', lxgw: 'LXGW WenKai', smiley: 'Smiley Sans',
+        kuhei: 'ZCOOL KuHei', wenyi: 'ZCOOL WenYi', canger: 'ZCOOL CangErYuYang',
+        addict: 'ZCOOL Addict', gaoduan: 'ZCOOL GaoDuanHei',
+        systemFont: 'System Default', georgia: 'Georgia',
+        arial: 'Arial', configManage: 'Config Management',
+        configDesc: 'Export current settings to JSON, or import saved config.',
+        export: 'Export Config', import: 'Import Config', downloadSettings: 'Download Settings',
+        defaultFormat: 'Default Format', png: 'PNG (Lossless, Recommended)',
+        jpeg: 'JPEG (Compressed, Small)', webp: 'WebP (Modern, Compatible)',
+        quality: 'JPEG/WebP Quality',
+        downloadFormat: 'Select Download Format', pngDesc: 'Lossless, transparent, larger file',
+        jpegDesc: 'Compressed, smaller, no transparency',
+        webpDesc: 'Modern format, high compression, compatible',
+        compressQuality: 'Compression Quality', cancel: 'Cancel', confirmDownload: 'Confirm Download',
+        generating: 'Generating...', resetConfirm: 'Reset all settings? This cannot be undone.',
+        resetTitle: 'Confirm Reset', configImported: 'Config imported successfully!',
+        invalidConfig: 'Invalid config file', invalidSvg: 'Please enter valid SVG code',
+        exportSuccess: 'Config exported', importSuccess: 'Config imported',
+        downloadSuccess: 'Cover downloaded', resetSuccess: 'All settings reset',
+        customSize: 'Custom Size', applySize: 'Apply Size',
+        gradientStops: 'Gradient Stops', addStop: '+ Add Stop', removeStop: '- Remove Stop',
+        meshColors: 'Mesh Colors (4 nodes)', meshComplexity: 'Complexity',
+        noiseIntensity: 'Noise Intensity', noiseScale: 'Noise Scale', noiseColor: 'Noise Color', noiseBgColor: 'Background Color',
+        customTexts: 'Custom Texts', addCustomText: 'Add Custom Text'
+    }
+};
+
+let currentLang = 'zh';
+
+function setLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (i18n[lang][key]) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = i18n[lang][key];
+            } else {
+                el.innerHTML = i18n[lang][key];
+            }
+        }
+    });
+    const tooltips = {
+        basic: lang === 'zh' ? '基础设置' : 'Basic Settings',
+        text: lang === 'zh' ? '文字内容' : 'Text Content',
+        svg: lang === 'zh' ? '图标' : 'Icons',
+        font: lang === 'zh' ? '字体样式' : 'Font Style',
+        config: lang === 'zh' ? '配置管理' : 'Config Management'
+    };
+    // nav-tooltip 已通过 data-i18n 自动更新
+    if (currentPanel) {
+        document.getElementById('panelTitle').textContent = panelTitles[currentPanel][lang];
+    }
+    updateSvgList();
+    updateCustomTextList();
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+});
+
+// ===== Toast System =====
+function showToast(type, title, message, duration = 3000) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast toast-' + type;
+
+    const icons = {
+        success: '<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+        error: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+        info: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+        warning: '<svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
+    };
+
+    toast.innerHTML = `
+<div class="toast-icon">${icons[type]}</div>
+<div class="toast-content">
+    <div class="toast-title">${title}</div>
+    <div class="toast-message">${message}</div>
+</div>
+<button class="toast-close" onclick="this.parentElement.remove()">
+    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+</button>
+`;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add('toast-exit');
+        setTimeout(() => toast.remove(), 300);
+    }, duration);
+}
+
+// ===== Confirm Dialog =====
+let confirmResolve = null;
+
+function showConfirm(title, message) {
+    return new Promise((resolve) => {
+        confirmResolve = resolve;
+        document.getElementById('confirmTitle').textContent = title;
+        document.getElementById('confirmMessage').textContent = message;
+        document.getElementById('confirmOverlay').classList.add('show');
+    });
+}
+
+document.getElementById('confirmCancel').addEventListener('click', () => {
+    document.getElementById('confirmOverlay').classList.remove('show');
+    if (confirmResolve) confirmResolve(false);
+});
+
+document.getElementById('confirmOk').addEventListener('click', () => {
+    document.getElementById('confirmOverlay').classList.remove('show');
+    if (confirmResolve) confirmResolve(true);
+});
+
+document.getElementById('confirmOverlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('confirmOverlay')) {
+        document.getElementById('confirmOverlay').classList.remove('show');
+        if (confirmResolve) confirmResolve(false);
+    }
+});
+
+// ===== Inline Color Picker =====
+let activeInlinePicker = null;
+
+function hsbToHex(h, s, b) {
+    s /= 100; b /= 100;
+    const k = (n) => (n + h / 60) % 6;
+    const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
+    const r = Math.round(f(5) * 255);
+    const g = Math.round(f(3) * 255);
+    const bl = Math.round(f(1) * 255);
+    return '#' + [r, g, bl].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+function hexToHsb(hex) {
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    const d = max - min;
+    let h = 0;
+    if (d !== 0) {
+        if (max === r) h = ((g - b) / d + 6) % 6;
+        else if (max === g) h = (b - r) / d + 2;
+        else h = (r - g) / d + 4;
+        h *= 60;
+    }
+    const s = max === 0 ? 0 : (d / max) * 100;
+    const v = max * 100;
+    return { h, s, b: v };
+}
+
+function createInlinePicker(initialHex, onChange, onClose) {
+    const hsb = hexToHsb(initialHex);
+    let currentHSB = { ...hsb };
+    let isDragging = false;
+    let dragMode = null;
+
+    const container = document.createElement('div');
+    container.className = 'inline-color-picker';
+    container.innerHTML = `
+        <div class="picker-sb-area">
+            <div class="picker-sb-cursor"></div>
+        </div>
+        <div class="picker-hue-track">
+            <div class="picker-hue-thumb"></div>
+        </div>
+        <div class="picker-preview-row">
+            <div class="picker-preview">
+                <div class="picker-preview-fill"></div>
+            </div>
+            <button class="picker-close-btn">
+                <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+        </div>
+    `;
+
+    const sbArea = container.querySelector('.picker-sb-area');
+    const cursor = container.querySelector('.picker-sb-cursor');
+    const hueTrack = container.querySelector('.picker-hue-track');
+    const hueThumb = container.querySelector('.picker-hue-thumb');
+    const previewFill = container.querySelector('.picker-preview-fill');
+
+    const closeBtn = container.querySelector('.picker-close-btn');
+
+    function updateSBBackground() {
+        sbArea.style.background = `linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, hsl(${currentHSB.h}, 100%, 50%))`;
+    }
+
+    function updateUI() {
+        const hex = hsbToHex(currentHSB.h, currentHSB.s, currentHSB.b);
+        const sbRect = sbArea.getBoundingClientRect();
+        const hueRect = hueTrack.getBoundingClientRect();
+
+        cursor.style.left = (currentHSB.s / 100 * sbRect.width) + 'px';
+        cursor.style.top = ((1 - currentHSB.b / 100) * sbRect.height) + 'px';
+        hueThumb.style.left = (currentHSB.h / 360 * hueRect.width) + 'px';
+        hueThumb.style.background = `hsl(${currentHSB.h}, 100%, 50%)`;
+        previewFill.style.background = hex;
+
+        updateSBBackground();
+        if (onChange) onChange(hex);
+    }
+
+    function handleSBMove(clientX, clientY) {
+        const rect = sbArea.getBoundingClientRect();
+        const x = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        const y = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
+        currentHSB.s = x * 100;
+        currentHSB.b = (1 - y) * 100;
+        updateUI();
+    }
+
+    function handleHueMove(clientX) {
+        const rect = hueTrack.getBoundingClientRect();
+        const x = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        currentHSB.h = x * 360;
+        updateUI();
+    }
+
+    function onMouseMove(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        if (dragMode === 'sb') handleSBMove(e.clientX, e.clientY);
+        else if (dragMode === 'hue') handleHueMove(e.clientX);
+    }
+
+    function onMouseUp() {
+        isDragging = false;
+        dragMode = null;
+    }
+
+    sbArea.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        dragMode = 'sb';
+        handleSBMove(e.clientX, e.clientY);
+    });
+
+    hueTrack.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        dragMode = 'hue';
+        handleHueMove(e.clientX);
+    });
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+
+    // Touch
+    sbArea.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        dragMode = 'sb';
+        handleSBMove(e.touches[0].clientX, e.touches[0].clientY);
+        e.preventDefault();
+    }, { passive: false });
+
+    hueTrack.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        dragMode = 'hue';
+        handleHueMove(e.touches[0].clientX);
+        e.preventDefault();
+    }, { passive: false });
+
+    function onTouchMove(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        if (dragMode === 'sb') handleSBMove(e.touches[0].clientX, e.touches[0].clientY);
+        else if (dragMode === 'hue') handleHueMove(e.touches[0].clientX);
+    }
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onMouseUp);
+
+    function close() {
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+        window.removeEventListener('touchmove', onTouchMove);
+        window.removeEventListener('touchend', onMouseUp);
+        container.remove();
+        if (activeInlinePicker === container) activeInlinePicker = null;
+        if (onClose) onClose();
+    }
+
+    closeBtn.addEventListener('click', close);
+
+    requestAnimationFrame(() => {
+        function outsideClick(e) {
+            if (!container.contains(e.target) && !e.target.closest('.color-picker-wrapper') && !e.target.closest('.color-bar')) {
+                close();
+                document.removeEventListener('click', outsideClick);
+            }
+        }
+        document.addEventListener('click', outsideClick);
+    });
+
+    updateSBBackground();
+    requestAnimationFrame(() => updateUI());
+
+    return container;
+}
+
+// ===== Default State =====
+const DEFAULT_STATE = {
+    width: 1200, height: 675,
+    bgType: 'gradient', gradientType: 'linear', gradientAngle: 135,
+    color1: '#0ea5e9', color2: '#8b5cf6', color3: '#ec4899',
+    gradientStops: 3,
+    solidColor: '#1a1a1a',
+    bgImage: null, bgBlur: 0, bgDarken: 0,
+    mainTitleFont: "'Smiley Sans', sans-serif",
+    mainTitle: 'Cover Designer', mainTitleSize: 80, mainTitleColor: '#ffffff', mainTitleX: 0.5, mainTitleY: 0.5,
+    customTexts: [],
+    svgs: [],
+    defaultFormat: 'png',
+    downloadQuality: 0.92,
+    meshColor1: '#0ea5e9', meshColor2: '#8b5cf6', meshColor3: '#ec4899', meshColor4: '#f5576c', meshComplexity: 5,
+    noiseIntensity: 20, noiseScale: 3, noiseColor: '#ffffff', noiseBgColor: '#0a0a0a'
+};
+
+let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+let svgIdCounter = 0;
+let customTextIdCounter = 0;
+const canvas = document.getElementById('coverCanvas');
+const ctx = canvas.getContext('2d');
+let dragTarget = null, isDragging = false;
+let selectedFormat = 'png';
+let bgImageObj = null;
+let currentPanel = null;
+
+const panelTitles = {
+    basic: { zh: '基础设置', en: 'Basic Settings' },
+    text: { zh: '文字内容', en: 'Text Content' },
+    svg: { zh: '图标管理', en: 'Icon Management' },
+    font: { zh: '字体样式', en: 'Font Style' },
+    config: { zh: '配置管理', en: 'Config Management' }
+};
+
+function openPanel(tabName) {
+    currentPanel = tabName;
+    document.getElementById('panelTitle').textContent = panelTitles[tabName][currentLang];
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + tabName).classList.add('active');
+    document.getElementById('configPanel').classList.remove('collapsed');
+    document.querySelectorAll('.nav-item[data-tab]').forEach(item => {
+        item.classList.toggle('active', item.dataset.tab === tabName);
+    });
+}
+
+function closePanel() {
+    document.getElementById('configPanel').classList.add('collapsed');
+    document.querySelectorAll('.nav-item[data-tab]').forEach(item => {
+        item.classList.remove('active');
+    });
+    currentPanel = null;
+}
+
+document.querySelectorAll('.nav-item[data-tab]').forEach(item => {
+    item.addEventListener('click', () => {
+        const tab = item.dataset.tab;
+        if (currentPanel === tab) {
+            closePanel();
+        } else {
+            openPanel(tab);
+        }
+    });
+});
+
+document.getElementById('panelCloseBtn').addEventListener('click', closePanel);
+
+let canvasScale = 1;
+const canvasWrapper = document.getElementById('canvasWrapper');
+
+function resetCanvasScale() {
+    canvasScale = Math.min((window.innerWidth - 200) / state.width, (window.innerHeight - 200) / state.height, 1);
+    canvas.style.width = (state.width * canvasScale) + 'px';
+    canvas.style.height = (state.height * canvasScale) + 'px';
+}
+
+function initCanvas() {
+    canvas.width = state.width;
+    canvas.height = state.height;
+    resetCanvasScale();
+    document.getElementById('sizeInfo').textContent = state.width + ' x ' + state.height;
+    draw();
+}
+
+canvasWrapper.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.1 : 0.1;
+    const newScale = Math.max(0.2, Math.min(3, canvasScale + delta));
+    if (newScale !== canvasScale) {
+        canvasScale = newScale;
+        canvas.style.width = (state.width * canvasScale) + 'px';
+        canvas.style.height = (state.height * canvasScale) + 'px';
+    }
+}, { passive: false });
+
+function randomColor() {
+    const hue = Math.random() * 360;
+    return 'hsl(' + hue + ', ' + (65 + Math.random() * 25) + '%, ' + (45 + Math.random() * 15) + '%)';
+}
+
+function hslToHex(hsl) {
+    const tmp = document.createElement('div');
+    tmp.style.color = hsl;
+    document.body.appendChild(tmp);
+    const rgb = getComputedStyle(tmp).color;
+    document.body.removeChild(tmp);
+    const m = rgb.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+    if (!m) return '#000000';
+    return '#' + [m[1], m[2], m[3]].map(x => parseInt(x).toString(16).padStart(2, '0')).join('');
+}
+
+function generateRandomColors() {
+    // 提取当前颜色的色相，用于确保新颜色有足够差异
+    let prevHue = null;
+    try {
+        const tmp = document.createElement('div');
+        tmp.style.color = state.color1;
+        document.body.appendChild(tmp);
+        const rgb = getComputedStyle(tmp).color;
+        document.body.removeChild(tmp);
+        const m = rgb.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+        if (m) {
+            const r = parseInt(m[1]) / 255, g = parseInt(m[2]) / 255, b = parseInt(m[3]) / 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            if (max !== min) {
+                let h;
+                if (max === r) h = ((g - b) / (max - min) + 6) % 6;
+                else if (max === g) h = (b - r) / (max - min) + 2;
+                else h = (r - g) / (max - min) + 4;
+                prevHue = h * 60;
+            }
+        }
+    } catch (e) {}
+
+    // 生成与之前颜色差异至少80度的baseHue
+    let baseHue = Math.random() * 360;
+    if (prevHue !== null) {
+        let diff = Math.abs(baseHue - prevHue);
+        if (diff > 180) diff = 360 - diff;
+        if (diff < 80) {
+            baseHue = (prevHue + 120 + Math.random() * 120) % 360;
+        }
+    }
+
+    // 三个颜色之间至少相隔90度，确保对比度
+    const hue1 = baseHue;
+    const hue2 = (baseHue + 90 + Math.random() * 90) % 360;
+    const hue3 = (baseHue + 210 + Math.random() * 90) % 360;
+
+    state.color1 = hslToHex('hsl(' + hue1 + ', 75%, 55%)');
+    state.color2 = hslToHex('hsl(' + hue2 + ', 70%, 50%)');
+    if (state.gradientStops >= 3) {
+        state.color3 = hslToHex('hsl(' + hue3 + ', 65%, 55%)');
+    }
+    state.gradientAngle = Math.floor(Math.random() * 360);
+    document.getElementById('gradientAngle').value = state.gradientAngle;
+    document.getElementById('angleValue').textContent = state.gradientAngle + '°';
+    updateColorBars();
+    draw();
+}
+
+function updateColorBars() {
+    const bar1 = document.getElementById('colorBar1');
+    const bar2 = document.getElementById('colorBar2');
+    const bar3 = document.getElementById('colorBar3');
+    bar1.style.background = state.color1;
+    bar1.setAttribute('data-color', state.color1);
+    bar2.style.background = state.color2;
+    bar2.setAttribute('data-color', state.color2);
+    if (state.gradientStops >= 3) {
+        bar3.style.background = state.color3;
+        bar3.setAttribute('data-color', state.color3);
+        bar3.style.display = 'block';
+    } else {
+        bar3.style.display = 'none';
     }
 }
 
-.toast-container {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    z-index: 3000;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    pointer-events: none;
+function updateColorPreview(inputId, previewId, textId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+    const text = document.getElementById(textId);
+    if (preview) preview.style.background = input.value;
+    if (text) text.textContent = input.value.toUpperCase();
 }
 
-.toast {
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 16px;
-    padding: 14px 18px;
-    min-width: 280px;
-    max-width: 360px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    animation: toastSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: auto;
-    position: relative;
-    overflow: hidden;
-}
+// ===== SVG Cache =====
+const svgImageCache = new Map(); // 存储 { svgCode: { img: Image, url: string } }
 
-.toast.toast-exit {
-    animation: toastSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.toast::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    border-radius: 3px 0 0 3px;
-}
-
-.toast.toast-success::before {
-    background: linear-gradient(180deg, #43e97b, #38f9d7);
-}
-
-.toast.toast-error::before {
-    background: linear-gradient(180deg, #ff6b6b, #ee5a6f);
-}
-
-.toast.toast-info::before {
-    background: linear-gradient(180deg, #667eea, #764ba2);
-}
-
-.toast.toast-warning::before {
-    background: linear-gradient(180deg, #f59e0b, #f97316);
-}
-
-.toast-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.toast-success .toast-icon {
-    background: rgba(67, 233, 123, 0.15);
-}
-
-.toast-error .toast-icon {
-    background: rgba(255, 107, 107, 0.15);
-}
-
-.toast-info .toast-icon {
-    background: rgba(102, 126, 234, 0.15);
-}
-
-.toast-warning .toast-icon {
-    background: rgba(245, 158, 11, 0.15);
-}
-
-.toast-icon svg {
-    width: 16px;
-    height: 16px;
-    stroke-width: 2;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.toast-success .toast-icon svg {
-    stroke: #43e97b;
-}
-
-.toast-error .toast-icon svg {
-    stroke: #ff6b6b;
-}
-
-.toast-info .toast-icon svg {
-    stroke: #667eea;
-}
-
-.toast-warning .toast-icon svg {
-    stroke: #f59e0b;
-}
-
-.toast-content {
-    flex: 1;
-    min-width: 0;
-}
-
-.toast-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 2px;
-}
-
-.toast-message {
-    font-size: 12px;
-    color: #888;
-    line-height: 1.5;
-}
-
-.toast-close {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    border: none;
-    background: transparent;
-    color: #555;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    flex-shrink: 0;
-    transition: all 0.2s;
-}
-
-.toast-close:hover {
-    background: #333;
-    color: #fff;
-}
-
-.toast-close svg {
-    width: 12px;
-    height: 12px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-@keyframes toastSlideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-30px) scale(0.95);
+function getSvgImage(svgCode, iconColor = '#ffffff') {
+    // 如果SVG包含currentColor，替换为指定颜色
+    let processedSvg = svgCode;
+    if (svgCode.includes('currentColor')) {
+        processedSvg = svgCode.replace(/currentColor/g, iconColor);
     }
+    
+    const cacheKey = processedSvg; // 使用处理后的SVG作为缓存key
+    if (svgImageCache.has(cacheKey)) {
+        return svgImageCache.get(cacheKey).img;
+    }
+    
+    const img = new Image();
+    const svgBlob = new Blob([processedSvg], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(svgBlob);
+    img.src = url;
+    svgImageCache.set(cacheKey, { img, url });
+    return img;
+}
 
-    to {
-        opacity: 1;
-        transform: translateX(0) scale(1);
+function cleanupSvgCache(svgCode) {
+    const cached = svgImageCache.get(svgCode);
+    if (cached) {
+        URL.revokeObjectURL(cached.url);
+        svgImageCache.delete(svgCode);
     }
 }
 
-@keyframes toastSlideOut {
-    from {
-        opacity: 1;
-        transform: translateX(0) scale(1);
+function cleanupAllSvgCache() {
+    svgImageCache.forEach(cached => {
+        URL.revokeObjectURL(cached.url);
+    });
+    svgImageCache.clear();
+}
+
+// ===== Mesh Gradient =====
+function drawMesh(ctx, w, h) {
+    const colors = [state.meshColor1, state.meshColor2, state.meshColor3, state.meshColor4];
+    const complexity = state.meshComplexity;
+
+    // 使用确定性伪随机函数，基于索引生成固定随机数
+    function seededRandom(seed) {
+        let x = Math.sin(seed * 127.1 + 311.7) * 43758.5453123;
+        return x - Math.floor(x);
     }
 
-    to {
-        opacity: 0;
-        transform: translateX(-30px) scale(0.95);
+    const points = [];
+    for (let i = 0; i <= complexity; i++) {
+        for (let j = 0; j <= complexity; j++) {
+            const seed = i * 1000 + j;
+            points.push({
+                x: (w / complexity) * j + (seededRandom(seed) - 0.5) * (w / complexity) * 0.3,
+                y: (h / complexity) * i + (seededRandom(seed + 5000) - 0.5) * (h / complexity) * 0.3,
+                color: colors[(i + j) % 4]
+            });
+        }
     }
-}
-
-.confirm-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    z-index: 2500;
-    align-items: center;
-    justify-content: center;
-}
-
-.confirm-overlay.show {
-    display: flex;
-}
-
-.confirm-dialog {
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 20px;
-    padding: 24px;
-    width: 340px;
-    max-width: 90vw;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    animation: confirmPopIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes confirmPopIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9) translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-.confirm-dialog .confirm-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: rgba(245, 158, 11, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-}
-
-.confirm-dialog .confirm-icon svg {
-    width: 24px;
-    height: 24px;
-    stroke: #f59e0b;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.confirm-dialog .confirm-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 8px;
-}
-
-.confirm-dialog .confirm-message {
-    font-size: 13px;
-    color: #888;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.confirm-dialog .confirm-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.confirm-dialog .confirm-actions .btn {
-    flex: 1;
-    padding: 10px;
-    font-size: 13px;
-}
-
-.modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
-    z-index: 2000;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.modal-overlay.show {
-    display: flex;
-    opacity: 1;
-}
-
-.modal-content {
-    background: #1a1a1a;
-    border: 1px solid #2a2a2a;
-    border-radius: 20px;
-    padding: 0;
-    width: 400px;
-    max-width: 90vw;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    transform: scale(0.95) translateY(10px);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-}
-
-.modal-overlay.show .modal-content {
-    transform: scale(1) translateY(0);
-}
-
-.modal-header {
-    padding: 24px 24px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.modal-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #fff;
-}
-
-.modal-close-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    border: none;
-    background: #252525;
-    color: #888;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.modal-close-btn:hover {
-    background: #333;
-    color: #fff;
-}
-
-.modal-close-btn svg {
-    width: 16px;
-    height: 16px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.modal-body {
-    padding: 20px 24px;
-}
-
-.modal-options {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.modal-option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    background: #242424;
-    border: 2px solid transparent;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.modal-option:hover {
-    border-color: #667eea;
-    background: #2a2a2a;
-}
-
-.modal-option.selected {
-    border-color: #667eea;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-}
-
-.modal-option input[type="radio"] {
-    accent-color: #667eea;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
-
-.modal-option-label {
-    flex: 1;
-    cursor: pointer;
-}
-
-.modal-option-label .label-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: #fff;
-    display: block;
-    margin-bottom: 2px;
-}
-
-.modal-option-label .label-desc {
-    font-size: 12px;
-    color: #666;
-}
-
-.modal-option-label .file-size {
-    font-size: 11px;
-    color: #4a90d9;
-    margin-top: 4px;
-    display: block;
-    font-weight: 500;
-}
-
-.modal-quality-section {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid #2a2a2a;
-}
-
-.modal-footer {
-    padding: 16px 24px 24px;
-    display: flex;
-    gap: 10px;
-}
-
-.modal-footer .btn {
-    flex: 1;
-}
-
-.font-select-list {
-    max-height: 300px;
-    overflow-y: auto;
-    border-radius: 10px;
-    border: 1px solid #333;
-    background: #242424;
-}
-
-.font-select-list::-webkit-scrollbar {
-    width: 5px;
-}
-
-.font-select-list::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 3px;
-}
-
-.font-option {
-    padding: 12px 14px;
-    cursor: pointer;
-    transition: all 0.15s;
-    border-bottom: 1px solid #2a2a2a;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.font-option:last-child {
-    border-bottom: none;
-}
-
-.font-option:hover {
-    background: #2a2a2a;
-}
-
-.font-option.active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
-    color: #a5b4fc;
-}
-
-.font-option .font-preview {
-    font-size: 18px;
-    width: 30px;
-    text-align: center;
-}
-
-.font-option .font-info {
-    flex: 1;
-}
-
-.font-option .font-name {
-    font-size: 13px;
-    font-weight: 500;
-}
-
-.font-option .font-desc {
-    font-size: 11px;
-    color: #666;
-    margin-top: 2px;
-}
-
-.font-select {
-    width: 100%;
-    padding: 8px 12px;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #e0e0e0;
-    font-size: 13px;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.2s;
-}
-
-.font-select:hover {
-    border-color: #555;
-}
-
-.font-select:focus {
-    border-color: #667eea;
-}
-
-.font-select option {
-    background: #1a1a1a;
-    color: #e0e0e0;
-    padding: 4px;
-}
-
-.lang-switcher {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(22, 22, 22, 0.8);
-    backdrop-filter: blur(12px);
-    border: 1px solid #2a2a2a;
-    border-radius: 10px;
-    padding: 6px 8px;
-}
-
-.lang-btn {
-    padding: 4px 10px;
-    border: none;
-    border-radius: 6px;
-    background: transparent;
-    color: #666;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.lang-btn:hover {
-    color: #999;
-}
-
-.lang-btn.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #fff;
-}
-
-.custom-size-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.custom-size-row input {
-    text-align: center;
-}
-
-.custom-text-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.custom-text-item {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 12px;
-}
-
-.custom-text-item-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-
-.custom-text-item-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #aaa;
-}
-
-.custom-text-remove {
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    border: none;
-    background: #333;
-    color: #888;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    transition: all 0.2s;
-}
-
-.custom-text-remove:hover {
-    background: #ff6b6b;
-    color: #fff;
-}
-
-.pattern-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.pattern-item {
-    height: 60px;
-    border-radius: 10px;
-    border: 2px solid #333;
-    cursor: pointer;
-    transition: all 0.2s;
-    overflow: hidden;
-    position: relative;
-}
-
-.pattern-item:hover {
-    border-color: #667eea;
-    transform: translateY(-2px);
-}
-
-.pattern-item.active {
-    border-color: #667eea;
-}
-
-.pattern-item canvas {
-    width: 100%;
-    height: 100%;
-}
-
-.pattern-item-label {
-    position: absolute;
-    bottom: 4px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.7);
-    background: rgba(0, 0, 0, 0.5);
-    padding: 2px 0;
-}
-
-.footer-icp {
-    position: fixed;
-    bottom: 4px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 50;
-    font-size: 11px;
-    color: #444;
-    transition: color 0.2s;
-}
-
-.footer-icp a {
-    color: #444;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.footer-icp a:hover {
-    color: #667eea;
-}
-
-.tab-panel {
-    display: none;
-}
-
-.tab-panel.active {
-    display: block;
-}
-
-       /* ===== Inline Color Picker ===== */
-       .inline-color-picker {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 14px;
-    padding: 16px;
-    margin-top: 8px;
-    animation: pickerSlideIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    z-index: 100;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-@keyframes pickerSlideIn {
-    from { opacity: 0; transform: translateY(-8px) scale(0.97); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.picker-sb-area {
-    width: 100%;
-    height: 160px;
-    border-radius: 10px;
-    position: relative;
-    cursor: crosshair;
-    overflow: hidden;
-    border: 1px solid #333;
-    margin-bottom: 12px;
-}
-
-.picker-sb-cursor {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.3);
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: none;
-}
-
-.picker-hue-track {
-    width: 100%;
-    height: 16px;
-    border-radius: 8px;
-    background: linear-gradient(to right,
-        #ff0000 0%, #ffff00 17%, #00ff00 33%,
-        #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
-    position: relative;
-    cursor: pointer;
-    border: 1px solid #333;
-    margin-bottom: 12px;
-}
-
-.picker-hue-thumb {
-    position: absolute;
-    top: -3px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-    pointer-events: none;
-    transform: translateX(-50%);
-    transition: none;
-}
-
-.picker-preview-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.picker-preview {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    border: 2px solid #333;
-    flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.picker-preview::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(45deg, #333 25%, transparent 25%),
-        linear-gradient(-45deg, #333 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #333 75%),
-        linear-gradient(-45deg, transparent 75%, #333 75%);
-    background-size: 10px 10px;
-    background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
-    z-index: 0;
-}
-
-.picker-preview-fill {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-}
-
-.picker-close-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    border: none;
-    background: #333;
-    color: #888;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    flex-shrink: 0;
-}
-
-.picker-close-btn:hover {
-    background: #444;
-    color: #fff;
-}
-
-.picker-close-btn svg {
-    width: 14px;
-    height: 14px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-/* ===== Responsive Design ===== */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        overflow: auto;
-    }
-
-    .sidebar-nav {
-        width: 100%;
-        flex-direction: row;
-        justify-content: center;
-        padding: 12px 0;
-        border-right: none;
-        border-bottom: 1px solid #252525;
-        overflow-x: auto;
-        overflow-y: visible;
-        gap: 4px;
-    }
-
-    .sidebar-nav::-webkit-scrollbar {
-        display: none;
-    }
-
-    .nav-logo {
-        display: none;
-    }
-
-    .nav-divider {
-        display: none;
-    }
-
-    .nav-bottom {
-        margin-top: 0;
-        flex-direction: row;
-    }
-
-    .nav-tooltip {
-        left: 50%;
-        top: calc(100% + 8px);
-        transform: translateX(-50%);
-        white-space: nowrap;
-    }
-
-    .preview-area {
-        padding: 15px;
-        min-height: 50vh;
-    }
-
-    .canvas-wrapper {
-        max-width: 100%;
-    }
-
-    #coverCanvas {
-        max-width: 100%;
-        height: auto;
-        border-radius: 12px;
-    }
-
-    .config-panel {
-        width: 100%;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        top: auto;
-        height: 60vh;
-        border-left: none;
-        border-top: 1px solid #252525;
-        transform: translateY(100%);
-        z-index: 100;
-    }
-
-    .config-panel.collapsed {
-        width: 100%;
-        transform: translateY(0);
-    }
-
-    .config-panel-header,
-    .config-panel-content {
-        min-width: auto;
-    }
-
-    .bottom-bar {
-        bottom: 70vh;
-        padding: 6px;
-    }
-
-    .bottom-btn {
-        padding: 8px 14px;
-        font-size: 12px;
-    }
-
-    .sidebar-toggle {
-        display: block !important;
+    for (let i = 0; i < complexity; i++) {
+        for (let j = 0; j < complexity; j++) {
+            const idx = i * (complexity + 1) + j;
+            const p1 = points[idx];
+            const p2 = points[idx + 1];
+            const p3 = points[idx + complexity + 1];
+            const p4 = points[idx + complexity + 2];
+            const grad = ctx.createLinearGradient(p1.x, p1.y, p4.x, p4.y);
+            grad.addColorStop(0, p1.color);
+            grad.addColorStop(0.5, p2.color);
+            grad.addColorStop(1, p4.color);
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.lineTo(p4.x, p4.y);
+            ctx.lineTo(p3.x, p3.y);
+            ctx.closePath();
+            ctx.fill();
+        }
     }
 }
 
-@media (max-width: 480px) {
-    .sidebar-nav {
-        padding: 8px 0;
+// ===== Noise Texture =====
+function drawNoise(ctx, w, h) {
+    ctx.fillStyle = state.noiseBgColor;
+    ctx.fillRect(0, 0, w, h);
+    const intensity = state.noiseIntensity / 100;
+    const scale = state.noiseScale;
+    const imageData = ctx.getImageData(0, 0, w, h);
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+        if (Math.random() < intensity) {
+            const noise = (Math.random() - 0.5) * 2 * scale * 20;
+            data[i] = Math.min(255, Math.max(0, data[i] + noise));
+            data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + noise));
+            data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + noise));
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+}
+
+// ===== Main Draw Function =====
+function draw() {
+    ctx.clearRect(0, 0, state.width, state.height);
+
+    if (state.bgType === 'image' && bgImageObj) {
+        ctx.save();
+        const imgRatio = bgImageObj.width / bgImageObj.height;
+        const canvasRatio = state.width / state.height;
+        let sx, sy, sw, sh;
+        if (imgRatio > canvasRatio) {
+            sh = bgImageObj.height;
+            sw = sh * canvasRatio;
+            sx = (bgImageObj.width - sw) / 2;
+            sy = 0;
+        } else {
+            sw = bgImageObj.width;
+            sh = sw / canvasRatio;
+            sx = 0;
+            sy = (bgImageObj.height - sh) / 2;
+        }
+        ctx.drawImage(bgImageObj, sx, sy, sw, sh, 0, 0, state.width, state.height);
+        if (state.bgBlur > 0) {
+            ctx.filter = 'blur(' + state.bgBlur + 'px)';
+            ctx.globalCompositeOperation = 'copy';
+            ctx.drawImage(canvas, 0, 0);
+            ctx.filter = 'none';
+            ctx.globalCompositeOperation = 'source-over';
+        }
+        if (state.bgDarken > 0) {
+            ctx.fillStyle = 'rgba(0,0,0,' + (state.bgDarken / 100) + ')';
+            ctx.fillRect(0, 0, state.width, state.height);
+        }
+        ctx.restore();
+    } else if (state.bgType === 'gradient') {
+        let grad;
+        if (state.gradientType === 'linear') {
+            const a = state.gradientAngle * Math.PI / 180;
+            const cx = state.width / 2, cy = state.height / 2, d = Math.sqrt(cx * cx + cy * cy);
+            grad = ctx.createLinearGradient(cx - Math.cos(a) * d, cy - Math.sin(a) * d, cx + Math.cos(a) * d, cy + Math.sin(a) * d);
+        } else if (state.gradientType === 'radial') {
+            grad = ctx.createRadialGradient(state.width / 2, state.height / 2, 0, state.width / 2, state.height / 2, Math.max(state.width, state.height) / 1.5);
+        } else {
+            grad = ctx.createConicGradient(state.gradientAngle * Math.PI / 180, state.width / 2, state.height / 2);
+        }
+        grad.addColorStop(0, state.color1);
+        if (state.gradientStops >= 3) {
+            grad.addColorStop(0.5, state.color2);
+            grad.addColorStop(1, state.color3);
+        } else {
+            grad.addColorStop(1, state.color2);
+        }
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, state.width, state.height);
+    } else if (state.bgType === 'mesh') {
+        drawMesh(ctx, state.width, state.height);
+    } else if (state.bgType === 'noise') {
+        drawNoise(ctx, state.width, state.height);
+    } else {
+        ctx.fillStyle = state.solidColor;
+        ctx.fillRect(0, 0, state.width, state.height);
     }
 
-    .nav-item {
-        width: 40px;
-        height: 40px;
+    // Subtle noise overlay
+    ctx.fillStyle = 'rgba(255,255,255,0.012)';
+    for (let i = 0; i < 80; i++) {
+        ctx.fillRect(Math.random() * state.width, Math.random() * state.height, Math.random() * 2, Math.random() * 2);
     }
 
-    .nav-item svg {
-        width: 18px;
-        height: 18px;
+    // Text
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '900 ' + state.mainTitleSize + 'px ' + state.mainTitleFont;
+    ctx.fillStyle = state.mainTitleColor;
+    ctx.shadowColor = 'rgba(0,0,0,0.3)';
+    ctx.shadowBlur = 20;
+    ctx.shadowOffsetY = 4;
+    wrapTextCenter(ctx, state.mainTitle, state.mainTitleX * state.width, state.mainTitleY * state.height, state.width * 0.84, state.mainTitleSize * 1.4);
+    ctx.shadowColor = 'transparent';
+
+    // Custom texts
+    state.customTexts.forEach(ct => {
+        const ctRgb = hexToRgb(ct.color);
+        ctx.font = (ct.bold ? '700 ' : '400 ') + ct.size + 'px ' + (ct.fontFamily || state.mainTitleFont);
+        ctx.fillStyle = 'rgba(' + ctRgb.r + ',' + ctRgb.g + ',' + ctRgb.b + ',' + ct.opacity + ')';
+        ctx.shadowColor = 'rgba(0,0,0,0.2)';
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetY = 2;
+        ctx.fillText(ct.text, ct.x * state.width, ct.y * state.height);
+        ctx.shadowColor = 'transparent';
+    });
+    // Draw SVGs
+    state.svgs.forEach(svgItem => {
+        const img = getSvgImage(svgItem.svgCode, svgItem.iconColor || '#ffffff');
+        if (img.complete && img.naturalWidth > 0) {
+            ctx.save();
+            const x = svgItem.x * state.width;
+            const y = svgItem.y * state.height;
+            const boxSize = svgItem.boxSize;
+            const iconSize = svgItem.size;
+            const radius = svgItem.radius;
+            const boxX = x - boxSize / 2;
+            const boxY = y - boxSize / 2;
+            const showBox = svgItem.showBox !== false;
+
+            if (showBox) {
+                ctx.beginPath();
+                if (svgItem.boxShape === 'circle') {
+                    ctx.arc(x, y, boxSize / 2, 0, Math.PI * 2);
+                } else if (svgItem.boxShape === 'diamond') {
+                    ctx.moveTo(x, boxY);
+                    ctx.lineTo(x + boxSize / 2, y);
+                    ctx.lineTo(x, boxY + boxSize);
+                    ctx.lineTo(x - boxSize / 2, y);
+                    ctx.closePath();
+                } else {
+                    if (ctx.roundRect) {
+                        ctx.roundRect(boxX, boxY, boxSize, boxSize, radius);
+                    } else {
+                        ctx.rect(boxX, boxY, boxSize, boxSize);
+                    }
+                }
+
+                if (svgItem.boxShadow) {
+                    ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+                    ctx.shadowBlur = 15;
+                    ctx.shadowOffsetX = 0;
+                    ctx.shadowOffsetY = 5;
+                }
+
+                if (svgItem.boxStyle === 'glass') {
+                    // 毛玻璃效果 - 真实的背景模糊
+                    
+                    // 1. 创建离屏canvas并截取背景
+                    const offCanvas = document.createElement('canvas');
+                    offCanvas.width = boxSize;
+                    offCanvas.height = boxSize;
+                    const offCtx = offCanvas.getContext('2d');
+                    
+                    // 从主canvas截取该区域的内容
+                    offCtx.drawImage(canvas, boxX, boxY, boxSize, boxSize, 0, 0, boxSize, boxSize);
+                    
+                    // 应用模糊滤镜
+                    offCtx.filter = 'blur(8px)';
+                    offCtx.globalCompositeOperation = 'copy';
+                    offCtx.drawImage(offCanvas, 0, 0);
+                    offCtx.filter = 'none';
+                    offCtx.globalCompositeOperation = 'source-over';
+                    
+                    // 2. 将模糊后的背景绘制回主canvas，限制在框内
+                    ctx.save();
+                    ctx.beginPath();
+                    if (svgItem.boxShape === 'circle') {
+                        ctx.arc(x, y, boxSize / 2, 0, Math.PI * 2);
+                    } else if (svgItem.boxShape === 'diamond') {
+                        ctx.moveTo(x, boxY);
+                        ctx.lineTo(x + boxSize / 2, y);
+                        ctx.lineTo(x, boxY + boxSize);
+                        ctx.lineTo(x - boxSize / 2, y);
+                        ctx.closePath();
+                    } else {
+                        if (ctx.roundRect) {
+                            ctx.roundRect(boxX, boxY, boxSize, boxSize, radius);
+                        } else {
+                            ctx.rect(boxX, boxY, boxSize, boxSize);
+                        }
+                    }
+                    ctx.clip();
+                    ctx.globalAlpha = svgItem.boxOpacity;
+                    ctx.drawImage(offCanvas, boxX, boxY);
+                    ctx.restore();
+                    
+                    // 3. 添加白色叠加层，增强玻璃感
+                    ctx.save();
+                    ctx.beginPath();
+                    if (svgItem.boxShape === 'circle') {
+                        ctx.arc(x, y, boxSize / 2, 0, Math.PI * 2);
+                    } else if (svgItem.boxShape === 'diamond') {
+                        ctx.moveTo(x, boxY);
+                        ctx.lineTo(x + boxSize / 2, y);
+                        ctx.lineTo(x, boxY + boxSize);
+                        ctx.lineTo(x - boxSize / 2, y);
+                        ctx.closePath();
+                    } else {
+                        if (ctx.roundRect) {
+                            ctx.roundRect(boxX, boxY, boxSize, boxSize, radius);
+                        } else {
+                            ctx.rect(boxX, boxY, boxSize, boxSize);
+                        }
+                    }
+                    ctx.clip();
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                    ctx.globalAlpha = svgItem.boxOpacity;
+                    ctx.fill();
+                    ctx.restore();
+                    
+                    // 4. 顶部高光（模拟光照反射）
+                    ctx.save();
+                    const highlightGrad = ctx.createLinearGradient(boxX, boxY, boxX, boxY + boxSize * 0.4);
+                    highlightGrad.addColorStop(0, 'rgba(255, 255, 255, 0.5)');
+                    highlightGrad.addColorStop(0.3, 'rgba(255, 255, 255, 0.15)');
+                    highlightGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    
+                    ctx.beginPath();
+                    if (svgItem.boxShape === 'circle') {
+                        ctx.arc(x, y, boxSize / 2, 0, Math.PI * 2);
+                    } else if (svgItem.boxShape === 'diamond') {
+                        ctx.moveTo(x, boxY);
+                        ctx.lineTo(x + boxSize / 2, y);
+                        ctx.lineTo(x, boxY + boxSize);
+                        ctx.lineTo(x - boxSize / 2, y);
+                        ctx.closePath();
+                    } else {
+                        if (ctx.roundRect) {
+                            ctx.roundRect(boxX, boxY, boxSize, boxSize, radius);
+                        } else {
+                            ctx.rect(boxX, boxY, boxSize, boxSize);
+                        }
+                    }
+                    ctx.clip();
+                    ctx.fillStyle = highlightGrad;
+                    ctx.globalAlpha = svgItem.boxOpacity * 0.8;
+                    ctx.fill();
+                    ctx.restore();
+                    
+                    // 5. 白色边框（模拟玻璃边缘反光）
+                    ctx.save();
+                    ctx.globalAlpha = svgItem.boxOpacity * 0.5;
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                    ctx.restore();
+                    
+                    // 6. 底部暗角（增加立体感）
+                    ctx.save();
+                    const shadowGrad = ctx.createLinearGradient(boxX, boxY + boxSize * 0.7, boxX, boxY + boxSize);
+                    shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+                    shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0.2)');
+                    
+                    ctx.beginPath();
+                    if (svgItem.boxShape === 'circle') {
+                        ctx.arc(x, y, boxSize / 2, 0, Math.PI * 2);
+                    } else if (svgItem.boxShape === 'diamond') {
+                        ctx.moveTo(x, boxY);
+                        ctx.lineTo(x + boxSize / 2, y);
+                        ctx.lineTo(x, boxY + boxSize);
+                        ctx.lineTo(x - boxSize / 2, y);
+                        ctx.closePath();
+                    } else {
+                        if (ctx.roundRect) {
+                            ctx.roundRect(boxX, boxY, boxSize, boxSize, radius);
+                        } else {
+                            ctx.rect(boxX, boxY, boxSize, boxSize);
+                        }
+                    }
+                    ctx.clip();
+                    ctx.fillStyle = shadowGrad;
+                    ctx.globalAlpha = 1;
+                    ctx.fill();
+                    ctx.restore();
+                } else {
+                    ctx.globalAlpha = svgItem.boxOpacity;
+                    ctx.fillStyle = svgItem.boxColor;
+                    ctx.fill();
+                }
+
+                ctx.shadowColor = 'transparent';
+                ctx.shadowBlur = 0;
+
+                // 非毛玻璃模式下显示自定义边框
+                if (svgItem.boxBorder && svgItem.boxStyle !== 'glass') {
+                    ctx.globalAlpha = 1;
+                    ctx.strokeStyle = svgItem.boxBorderColor || '#ffffff';
+                    ctx.lineWidth = svgItem.boxBorderWidth || 2;
+                    ctx.stroke();
+                }
+            }
+
+            ctx.globalAlpha = svgItem.opacity;
+            ctx.drawImage(img, x - iconSize / 2, y - iconSize / 2, iconSize, iconSize);
+            ctx.restore();
+        }
+    });
+
+}
+
+function wrapTextCenter(ctx, text, x, y, maxW, lineH) {
+    const chars = text.split('');
+    let lines = [], line = '';
+    for (let i = 0; i < chars.length; i++) {
+        const test = line + chars[i];
+        if (ctx.measureText(test).width > maxW && line) {
+            lines.push(line); line = chars[i];
+        } else line = test;
+    }
+    lines.push(line);
+    const startY = y - (lines.length - 1) * lineH / 2;
+    for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], x, startY + i * lineH);
+    }
+}
+
+function hexToRgb(hex) {
+    return {
+        r: parseInt(hex.slice(1, 3), 16),
+        g: parseInt(hex.slice(3, 5), 16),
+        b: parseInt(hex.slice(5, 7), 16)
+    };
+}
+
+function getCanvasPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+        x: (e.clientX - rect.left) * (state.width / rect.width),
+        y: (e.clientY - rect.top) * (state.height / rect.height)
+    };
+}
+
+function hitTest(x, y) {
+    // Custom texts first
+    for (let i = state.customTexts.length - 1; i >= 0; i--) {
+        const ct = state.customTexts[i];
+        const ctx2 = document.createElement('canvas').getContext('2d');
+        ctx2.font = (ct.bold ? '700 ' : '400 ') + ct.size + 'px ' + (ct.fontFamily || state.mainTitleFont);
+        const tw = ctx2.measureText(ct.text).width;
+        const tx = ct.x * state.width, ty = ct.y * state.height;
+        if (Math.abs(x - tx) < tw / 2 + 20 && Math.abs(y - ty) < ct.size / 2 + 10) {
+            return { type: 'customText', index: i };
+        }
+    }
+    for (let i = state.svgs.length - 1; i >= 0; i--) {
+        const s = state.svgs[i];
+        const sx = s.x * state.width, sy = s.y * state.height;
+        if (Math.abs(x - sx) < s.boxSize / 2 && Math.abs(y - sy) < s.boxSize / 2) {
+            return { type: 'svg', index: i };
+        }
+    }
+    const targets = [
+        { key: 'mainTitle', x: state.mainTitleX * state.width, y: state.mainTitleY * state.height, size: state.mainTitleSize }
+    ];
+    for (let t of targets) {
+        const dx = x - t.x, dy = y - t.y;
+        if (Math.sqrt(dx * dx + dy * dy) < Math.max(t.size * 1.5, 60)) {
+            return { type: 'text', key: t.key };
+        }
+    }
+    return null;
+}
+
+canvas.addEventListener('mousedown', e => {
+    const pos = getCanvasPos(e);
+    const hit = hitTest(pos.x, pos.y);
+    if (hit) {
+        dragTarget = hit;
+        isDragging = true;
+        canvas.style.cursor = 'grabbing';
+    }
+});
+
+window.addEventListener('mousemove', e => {
+    if (!isDragging || !dragTarget) return;
+    const pos = getCanvasPos(e);
+    const nx = Math.max(0.05, Math.min(0.95, pos.x / state.width));
+    const ny = Math.max(0.05, Math.min(0.95, pos.y / state.height));
+    if (dragTarget.type === 'text') {
+        state[dragTarget.key + 'X'] = nx;
+        state[dragTarget.key + 'Y'] = ny;
+        updatePosDisplay();
+    } else if (dragTarget.type === 'svg') {
+        state.svgs[dragTarget.index].x = nx;
+        state.svgs[dragTarget.index].y = ny;
+        updateSvgList();
+    } else if (dragTarget.type === 'customText') {
+        state.customTexts[dragTarget.index].x = nx;
+        state.customTexts[dragTarget.index].y = ny;
+        updateCustomTextList();
+    }
+    draw();
+});
+
+window.addEventListener('mouseup', () => {
+    isDragging = false;
+    dragTarget = null;
+    canvas.style.cursor = 'crosshair';
+});
+
+canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    const t = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    const x = (t.clientX - rect.left) * (state.width / rect.width);
+    const y = (t.clientY - rect.top) * (state.height / rect.height);
+    const hit = hitTest(x, y);
+    if (hit) { dragTarget = hit; isDragging = true; }
+}, { passive: false });
+
+canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!isDragging || !dragTarget) return;
+    const t = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    const nx = Math.max(0.05, Math.min(0.95, (t.clientX - rect.left) * (state.width / rect.width) / state.width));
+    const ny = Math.max(0.05, Math.min(0.95, (t.clientY - rect.top) * (state.height / rect.height) / state.height));
+    if (dragTarget.type === 'text') {
+        state[dragTarget.key + 'X'] = nx;
+        state[dragTarget.key + 'Y'] = ny;
+        updatePosDisplay();
+    } else if (dragTarget.type === 'svg') {
+        state.svgs[dragTarget.index].x = nx;
+        state.svgs[dragTarget.index].y = ny;
+        updateSvgList();
+    } else if (dragTarget.type === 'customText') {
+        state.customTexts[dragTarget.index].x = nx;
+        state.customTexts[dragTarget.index].y = ny;
+        updateCustomTextList();
+    }
+    draw();
+}, { passive: false });
+
+canvas.addEventListener('touchend', () => { isDragging = false; dragTarget = null; });
+
+function updatePosDisplay() {
+    document.getElementById('mainTitlePos').textContent = 'X: ' + Math.round(state.mainTitleX * state.width) + ' | Y: ' + Math.round(state.mainTitleY * state.height);
+}
+
+// ===== Custom Text =====
+function updateCustomTextList() {
+    const list = document.getElementById('customTextList');
+    if (state.customTexts.length === 0) {
+        list.innerHTML = '';
+        return;
+    }
+    let html = '';
+    const lang = currentLang;
+    const fontSizeLabel = lang === 'zh' ? '字号' : 'Font Size';
+    const colorLabel = lang === 'zh' ? '颜色' : 'Color';
+    const opacityLabel = lang === 'zh' ? '透明度' : 'Opacity';
+    const boldLabel = lang === 'zh' ? '加粗' : 'Bold';
+    const positionLabel = lang === 'zh' ? '位置' : 'Position';
+    const dragLabel = lang === 'zh' ? '(拖拽画布调整)' : '(Drag on canvas)';
+    const normalText = lang === 'zh' ? '正常' : 'Normal';
+    const boldText = lang === 'zh' ? '加粗' : 'Bold';
+    for (let idx = 0; idx < state.customTexts.length; idx++) {
+        const ct = state.customTexts[idx];
+        const ctFont = ct.fontFamily || "'Noto Sans SC', sans-serif";
+        html += '<div class="custom-text-item">' +
+            '<div class="custom-text-item-header">' +
+            '<span class="custom-text-item-label">' + (lang === 'zh' ? '文字 ' : 'Text ') + (idx + 1) + '</span>' +
+            '<button class="custom-text-remove" data-idx="' + idx + '">×</button>' +
+            '</div>' +
+            '<div class="form-group"><input type="text" class="custom-text-input" data-idx="' + idx + '" value="' + ct.text + '" placeholder="' + (lang === 'zh' ? '输入文字' : 'Enter text') + '"></div>' +
+            '<div class="form-group">' +
+            '<label>' + (lang === 'zh' ? '字体' : 'Font') + '</label>' +
+            '<select class="custom-text-font" data-idx="' + idx + '">' +
+            '<option value="\'Noto Sans SC\', sans-serif"' + (ctFont === "'Noto Sans SC', sans-serif" ? ' selected' : '') + '>思源黑体</option>' +
+            '<option value="\'Noto Serif SC\', serif"' + (ctFont === "'Noto Serif SC', serif" ? ' selected' : '') + '>思源宋体</option>' +
+            '<option value="\'ZCOOL XiaoWei\', serif"' + (ctFont === "'ZCOOL XiaoWei', serif" ? ' selected' : '') + '>站酷小薇体</option>' +
+            '<option value="\'ZCOOL KuaiLe\', cursive"' + (ctFont === "'ZCOOL KuaiLe', cursive" ? ' selected' : '') + '>站酷快乐体</option>' +
+            '<option value="\'Ma Shan Zheng\', cursive"' + (ctFont === "'Ma Shan Zheng', cursive" ? ' selected' : '') + '>马善政毛笔</option>' +
+            '<option value="\'ZCOOL QingKe HuangYou\', sans-serif"' + (ctFont === "'ZCOOL QingKe HuangYou', sans-serif" ? ' selected' : '') + '>站酷黄油体</option>' +
+            '<option value="\'Long Cang\', cursive"' + (ctFont === "'Long Cang', cursive" ? ' selected' : '') + '>龙藏体</option>' +
+            '<option value="\'Zhi Mang Xing\', cursive"' + (ctFont === "'Zhi Mang Xing', cursive" ? ' selected' : '') + '>知芒星</option>' +
+            '<option value="\'Liu Jian Mao Cao\', cursive"' + (ctFont === "'Liu Jian Mao Cao', cursive" ? ' selected' : '') + '>刘辩毛草</option>' +
+            '<option value="\'LXGW WenKai\', serif"' + (ctFont === "'LXGW WenKai', serif" ? ' selected' : '') + '>霞鹜文楷</option>' +
+            '<option value="\'Smiley Sans\', sans-serif"' + (ctFont === "'Smiley Sans', sans-serif" ? ' selected' : '') + '>得意黑</option>' +
+            '<option value="\'ZCOOL KuHei\', sans-serif"' + (ctFont === "'ZCOOL KuHei', sans-serif" ? ' selected' : '') + '>站酷酷黑</option>' +
+            '<option value="\'ZCOOL WenYi\', serif"' + (ctFont === "'ZCOOL WenYi', serif" ? ' selected' : '') + '>站酷文艺</option>' +
+            '<option value="\'ZCOOL CangErYuYang\', cursive"' + (ctFont === "'ZCOOL CangErYuYang', cursive" ? ' selected' : '') + '>站酷仓耳渔阳</option>' +
+            '<option value="\'ZCOOL Addict\', sans-serif"' + (ctFont === "'ZCOOL Addict', sans-serif" ? ' selected' : '') + '>站酷 addicts</option>' +
+            '<option value="\'ZCOOL GaoDuanHei\', sans-serif"' + (ctFont === "'ZCOOL GaoDuanHei', sans-serif" ? ' selected' : '') + '>站酷高端黑</option>' +
+            '<option value="\'ZCOOL AiLe\', cursive"' + (ctFont === "'ZCOOL AiLe', cursive" ? ' selected' : '') + '>站酷爱乐体</option>' +
+            '<option value="\'ZCOOL KuBi\', sans-serif"' + (ctFont === "'ZCOOL KuBi', sans-serif" ? ' selected' : '') + '>站酷酷毕体</option>' +
+            '<option value="\'ZCOOL TeZhuan\', sans-serif"' + (ctFont === "'ZCOOL TeZhuan', sans-serif" ? ' selected' : '') + '>站酷特专体</option>' +
+            '<option value="\'Alimama FangDaTi\', sans-serif"' + (ctFont === "'Alimama FangDaTi', sans-serif" ? ' selected' : '') + '>阿里妈妈方大体</option>' +
+            '<option value="\'Alimama ShuHeiTi\', sans-serif"' + (ctFont === "'Alimama ShuHeiTi', sans-serif" ? ' selected' : '') + '>阿里妈妈数黑体</option>' +
+            '<option value="\'Douyin Sans\', sans-serif"' + (ctFont === "'Douyin Sans', sans-serif" ? ' selected' : '') + '>抖音美好体</option>' +
+            '<option value="\'Douyin Good\', sans-serif"' + (ctFont === "'Douyin Good', sans-serif" ? ' selected' : '') + '>抖音好字体</option>' +
+            '<option value="\'Black Ops One\', cursive"' + (ctFont === "'Black Ops One', cursive" ? ' selected' : '') + '>Black Ops One</option>' +
+            '<option value="\'Bungee\', cursive"' + (ctFont === "'Bungee', cursive" ? ' selected' : '') + '>Bungee</option>' +
+            '<option value="\'Permanent Marker\', cursive"' + (ctFont === "'Permanent Marker', cursive" ? ' selected' : '') + '>Permanent Marker</option>' +
+            '<option value="\'Pacifico\', cursive"' + (ctFont === "'Pacifico', cursive" ? ' selected' : '') + '>Pacifico</option>' +
+            '<option value="\'Caveat\', cursive"' + (ctFont === "'Caveat', cursive" ? ' selected' : '') + '>Caveat 手写</option>' +
+            '<option value="\'Righteous\', sans-serif"' + (ctFont === "'Righteous', sans-serif" ? ' selected' : '') + '>Righteous</option>' +
+            '<option value="Georgia, serif"' + (ctFont === 'Georgia, serif' ? ' selected' : '') + '>Georgia</option>' +
+            '<option value="Arial, sans-serif"' + (ctFont === 'Arial, sans-serif' ? ' selected' : '') + '>Arial</option>' +
+            '</select>' +
+            '</div>' +
+            '<div class="two-col">' +
+            '<div class="form-group">' +
+            '<label>' + fontSizeLabel + '</label>' +
+            '<input type="range" class="custom-text-size" data-idx="' + idx + '" min="10" max="100" value="' + ct.size + '">' +
+            '<div class="range-value">' + ct.size + 'px</div>' +
+            '</div>' +
+            '<div class="form-group">' +
+            '<label>' + colorLabel + '</label>' +
+            '<div class="color-picker-wrapper custom-text-color-wrapper" data-idx="' + idx + '">' +
+            '<div class="color-preview-circle" style="background:' + ct.color + '"></div>' +
+            '<span class="color-value-text">' + ct.color.toUpperCase() + '</span>' +
+            '<input type="color" class="custom-text-color" data-idx="' + idx + '" value="' + ct.color + '">' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="two-col">' +
+            '<div class="form-group">' +
+            '<label>' + opacityLabel + '</label>' +
+            '<input type="range" class="custom-text-opacity" data-idx="' + idx + '" min="0" max="100" value="' + Math.round(ct.opacity * 100) + '">' +
+            '<div class="range-value">' + Math.round(ct.opacity * 100) + '%</div>' +
+            '</div>' +
+            '<div class="form-group">' +
+            '<label>' + boldLabel + '</label>' +
+            '<select class="custom-text-bold" data-idx="' + idx + '">' +
+            '<option value="0" ' + (!ct.bold ? 'selected' : '') + '>' + normalText + '</option>' +
+            '<option value="1" ' + (ct.bold ? 'selected' : '') + '>' + boldText + '</option>' +
+            '</select>' +
+            '</div>' +
+            '</div>' +
+            '<div class="form-group">' +
+            '<label>' + positionLabel + ' <span style="color:#555;font-size:11px;">' + dragLabel + '</span></label>' +
+            '<div class="pos-display" id="ctPos_' + idx + '">X: ' + Math.round(ct.x * state.width) + ' | Y: ' + Math.round(ct.y * state.height) + '</div>' +
+            '</div>' +
+            '</div>';
+    }
+    list.innerHTML = html;
+}
+
+document.getElementById('customTextList').addEventListener('click', function (e) {
+    const btn = e.target.closest('.custom-text-remove');
+    if (btn) {
+        const idx = parseInt(btn.dataset.idx);
+        state.customTexts.splice(idx, 1);
+        updateCustomTextList();
+        draw();
+        return;
+    }
+    const wrapper = e.target.closest('.custom-text-color-wrapper');
+    if (wrapper && !e.target.closest('.inline-color-picker')) {
+        e.preventDefault();
+        e.stopPropagation();
+        const idx = parseInt(wrapper.dataset.idx);
+        const input = wrapper.querySelector('.custom-text-color');
+        if (!input) return;
+
+        if (activeInlinePicker) {
+            activeInlinePicker.remove();
+            activeInlinePicker = null;
+        }
+
+        const picker = createInlinePicker(input.value, (hex) => {
+            input.value = hex;
+            state.customTexts[idx].color = hex;
+            const preview = wrapper.querySelector('.color-preview-circle');
+            const text = wrapper.querySelector('.color-value-text');
+            if (preview) preview.style.background = hex;
+            if (text) text.textContent = hex.toUpperCase();
+            draw();
+        });
+
+        wrapper.appendChild(picker);
+        activeInlinePicker = picker;
+    }
+});
+
+document.getElementById('customTextList').addEventListener('input', function (e) {
+    const input = e.target.closest('.custom-text-input');
+    if (input) {
+        const idx = parseInt(input.dataset.idx);
+        state.customTexts[idx].text = input.value;
+        draw();
+        return;
+    }
+    const slider = e.target.closest('.custom-text-size');
+    if (slider) {
+        const idx = parseInt(slider.dataset.idx);
+        state.customTexts[idx].size = parseInt(slider.value);
+        draw();
+        return;
+    }
+    const opacitySlider = e.target.closest('.custom-text-opacity');
+    if (opacitySlider) {
+        const idx = parseInt(opacitySlider.dataset.idx);
+        state.customTexts[idx].opacity = parseInt(opacitySlider.value) / 100;
+        draw();
+        return;
+    }
+    const boldSelect = e.target.closest('.custom-text-bold');
+    if (boldSelect) {
+        const idx = parseInt(boldSelect.dataset.idx);
+        state.customTexts[idx].bold = boldSelect.value === '1';
+        draw();
+        return;
+    }
+    const fontSelect = e.target.closest('.custom-text-font');
+    if (fontSelect) {
+        const idx = parseInt(fontSelect.dataset.idx);
+        state.customTexts[idx].fontFamily = fontSelect.value;
+        const ct = state.customTexts[idx];
+        document.fonts.load(ct.size + 'px ' + ct.fontFamily).then(() => {
+            draw();
+        }).catch(() => {
+            draw();
+        });
+    }
+});
+
+document.getElementById('addCustomTextBtn').addEventListener('click', () => {
+    const newFont = "'Noto Sans SC', sans-serif";
+    state.customTexts.push({
+        id: ++customTextIdCounter,
+        text: '自定义文字',
+        x: 0.5,
+        y: 0.7 + state.customTexts.length * 0.05,
+        size: 24,
+        color: '#ffffff',
+        opacity: 0.8,
+        bold: false,
+        fontFamily: newFont
+    });
+    updateCustomTextList();
+    // 确保字体加载完成后再绘制
+    document.fonts.load('24px ' + newFont).then(() => {
+        draw();
+    }).catch(() => {
+        draw();
+    });
+});
+
+// ===== SVG List =====
+function updateSvgList() {
+    const list = document.getElementById('svgList');
+    if (state.svgs.length === 0) {
+        list.innerHTML = '<div class="empty-state">' + i18n[currentLang].noIcons + '</div>';
+        return;
+    }
+    let html = '';
+    const lang = currentLang;
+    const boxSizeLabel = lang === 'zh' ? '框大小' : 'Box Size';
+    const iconSizeLabel = lang === 'zh' ? '图标大小' : 'Icon Size';
+    const iconColorLabel = lang === 'zh' ? '图标颜色' : 'Icon Color';
+    const radiusLabel = lang === 'zh' ? '圆角' : 'Radius';
+    const boxOpacityLabel = lang === 'zh' ? '框透明度' : 'Box Opacity';
+    const opacityLabel = lang === 'zh' ? '图标透明度' : 'Icon Opacity';
+    const boxColorLabel = lang === 'zh' ? '框颜色' : 'Box Color';
+    const posLabel = lang === 'zh' ? '位置' : 'Position';
+    const dragLabel = lang === 'zh' ? '(拖拽画布调整)' : '(Drag on canvas)';
+    const boxStyleLabel = lang === 'zh' ? '背景样式' : 'Bg Style';
+    const boxShapeLabel = lang === 'zh' ? '形状' : 'Shape';
+    const boxShadowLabel = lang === 'zh' ? '阴影' : 'Shadow';
+    const boxBorderLabel = lang === 'zh' ? '边框' : 'Border';
+    const borderColorLabel = lang === 'zh' ? '边框颜色' : 'Border Color';
+    const borderWidthLabel = lang === 'zh' ? '边框宽度' : 'Border Width';
+    const showBoxLabel = lang === 'zh' ? '显示背景' : 'Show Box';
+
+    for (let idx = 0; idx < state.svgs.length; idx++) {
+        const svg = state.svgs[idx];
+        const blob = new Blob([svg.svgCode], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        let previewBg;
+        if (svg.boxStyle === 'glass') {
+            previewBg = svg.boxColor + '80';
+        } else {
+            previewBg = svg.boxColor;
+        }
+        const previewBorder = svg.boxBorder ? svg.boxBorderColor : 'transparent';
+        html += '<div class="svg-item">' +
+            '<div class="svg-box-preview" style="background:' + previewBg + ';border-radius:' + (svg.boxShape === 'circle' ? '50%' : svg.radius + 'px') + ';border: ' + (svg.boxBorder ? svg.boxBorderWidth + 'px solid ' + svg.boxBorderColor : 'none') + ';">' +
+            '<img src="' + url + '" style="width:28px;height:28px;">' +
+            '</div>' +
+            '<div class="svg-info">' +
+            boxSizeLabel + ': ' + svg.boxSize + 'px · ' + iconSizeLabel + ': ' + svg.size + 'px<br>' +
+            boxStyleLabel + ': ' + svg.boxStyle + ' · ' + boxShapeLabel + ': ' + svg.boxShape + '<br>' +
+            posLabel + ': ' + Math.round(svg.x * state.width) + ', ' + Math.round(svg.y * state.height) +
+            '</div>' +
+            '<div class="svg-actions">' +
+            '<button class="btn btn-secondary btn-small svg-edit-btn" data-idx="' + idx + '">⚙</button>' +
+            '<button class="btn btn-danger btn-small svg-remove-btn" data-idx="' + idx + '">✕</button>' +
+            '</div>' +
+            '</div>' +
+            '<div class="card svg-edit-panel" id="svgEdit_' + idx + '" style="display:none;margin-top:4px;" data-idx="' + idx + '">' +
+            '<div class="svg-effect-row">' +
+            '<label class="svg-toggle"><input type="checkbox" data-idx="' + idx + '" data-prop="showBox" ' + (svg.showBox !== false ? 'checked' : '') + '><span>' + showBoxLabel + '</span></label>' +
+            '</div>' +
+            '<div class="svg-style-section">' +
+            '<div class="form-group"><label>' + boxStyleLabel + '</label>' +
+            '<div class="svg-style-grid">' +
+            '<label class="svg-style-option"><input type="radio" name="boxStyle_' + idx + '" value="solid" ' + (svg.boxStyle === 'solid' ? 'checked' : '') + ' data-idx="' + idx + '" data-prop="boxStyle"><span>纯色</span></label>' +
+            '<label class="svg-style-option"><input type="radio" name="boxStyle_' + idx + '" value="glass" ' + (svg.boxStyle === 'glass' ? 'checked' : '') + ' data-idx="' + idx + '" data-prop="boxStyle"><span>毛玻璃</span></label>' +
+            '</div></div>' +
+            '</div>' +
+            '<div class="two-col">' +
+            '<div class="form-group"><label>' + boxShapeLabel + '</label>' +
+            '<select class="svg-select" data-idx="' + idx + '" data-prop="boxShape">' +
+            '<option value="rounded" ' + (svg.boxShape === 'rounded' ? 'selected' : '') + '>圆角矩形</option>' +
+            '<option value="circle" ' + (svg.boxShape === 'circle' ? 'selected' : '') + '>圆形</option>' +
+            '<option value="diamond" ' + (svg.boxShape === 'diamond' ? 'selected' : '') + '>菱形</option>' +
+            '</select></div>' +
+            '<div class="form-group"><label>' + boxSizeLabel + '</label>' +
+            '<input type="range" class="svg-slider" data-idx="' + idx + '" data-prop="boxSize" min="40" max="300" value="' + svg.boxSize + '">' +
+            '<div class="range-value">' + svg.boxSize + 'px</div></div>' +
+            '</div>' +
+            '<div class="two-col">' +
+            '<div class="form-group"><label>' + radiusLabel + '</label>' +
+            '<input type="range" class="svg-slider" data-idx="' + idx + '" data-prop="radius" min="0" max="100" value="' + svg.radius + '">' +
+            '<div class="range-value">' + svg.radius + 'px</div></div>' +
+            '<div class="form-group"><label>' + iconSizeLabel + '</label>' +
+            '<input type="range" class="svg-slider" data-idx="' + idx + '" data-prop="size" min="20" max="200" value="' + svg.size + '">' +
+            '<div class="range-value">' + svg.size + 'px</div></div>' +
+            '</div>' +
+            '<div class="svg-solid-section"><div class="form-group"><label>' + boxColorLabel + '</label>' +
+            '<div class="color-picker-wrapper svg-color-wrapper" data-idx="' + idx + '" data-prop="boxColor">' +
+            '<div class="color-preview-circle" style="background:' + svg.boxColor + '"></div>' +
+            '<span class="color-value-text">' + svg.boxColor.toUpperCase() + '</span>' +
+            '<input type="color" class="svg-color-input" data-idx="' + idx + '" data-prop="boxColor" value="' + svg.boxColor + '">' +
+            '</div></div></div>' +
+            '<div class="form-group"><label>' + iconColorLabel + '</label>' +
+            '<div class="color-picker-wrapper svg-color-wrapper" data-idx="' + idx + '" data-prop="iconColor">' +
+            '<div class="color-preview-circle" style="background:' + (svg.iconColor || '#ffffff') + '"></div>' +
+            '<span class="color-value-text">' + (svg.iconColor || '#ffffff').toUpperCase() + '</span>' +
+            '<input type="color" class="svg-color-input" data-idx="' + idx + '" data-prop="iconColor" value="' + (svg.iconColor || '#ffffff') + '">' +
+            '</div></div>';
+
+        html += '<div class="two-col">' +
+            '<div class="form-group"><label>' + boxOpacityLabel + '</label>' +
+            '<input type="range" class="svg-slider" data-idx="' + idx + '" data-prop="boxOpacity" min="0" max="100" value="' + Math.round(svg.boxOpacity * 100) + '">' +
+            '<div class="range-value">' + Math.round(svg.boxOpacity * 100) + '%</div></div>' +
+            '<div class="form-group"><label>' + opacityLabel + '</label>' +
+            '<input type="range" class="svg-slider" data-idx="' + idx + '" data-prop="opacity" min="0" max="100" value="' + Math.round(svg.opacity * 100) + '">' +
+            '<div class="range-value">' + Math.round(svg.opacity * 100) + '%</div></div>' +
+            '</div>' +
+            '<div class="svg-effect-row">' +
+            '<label class="svg-toggle"><input type="checkbox" data-idx="' + idx + '" data-prop="boxShadow" ' + (svg.boxShadow ? 'checked' : '') + '><span>' + boxShadowLabel + '</span></label>' +
+            '<label class="svg-toggle"><input type="checkbox" data-idx="' + idx + '" data-prop="boxBorder" ' + (svg.boxBorder ? 'checked' : '') + '><span>' + boxBorderLabel + '</span></label>' +
+            '</div>';
+
+        if (svg.boxBorder) {
+            html += '<div class="two-col svg-border-section">' +
+                '<div class="form-group"><label>' + borderColorLabel + '</label>' +
+                '<div class="color-picker-wrapper svg-color-wrapper" data-idx="' + idx + '" data-prop="boxBorderColor">' +
+                '<div class="color-preview-circle" style="background:' + svg.boxBorderColor + '"></div>' +
+                '<span class="color-value-text">' + svg.boxBorderColor.toUpperCase() + '</span>' +
+                '<input type="color" class="svg-color-input" data-idx="' + idx + '" data-prop="boxBorderColor" value="' + svg.boxBorderColor + '">' +
+                '</div></div>' +
+                '<div class="form-group"><label>' + borderWidthLabel + '</label>' +
+                '<input type="range" class="svg-slider" data-idx="' + idx + '" data-prop="boxBorderWidth" min="1" max="10" value="' + svg.boxBorderWidth + '">' +
+                '<div class="range-value">' + svg.boxBorderWidth + 'px</div></div>' +
+                '</div>';
+        } else {
+            html += '<div class="two-col svg-border-section" style="display:none;">' +
+                '<div class="form-group"><label>' + borderColorLabel + '</label>' +
+                '<div class="color-picker-wrapper svg-color-wrapper" data-idx="' + idx + '" data-prop="boxBorderColor">' +
+                '<div class="color-preview-circle" style="background:' + svg.boxBorderColor + '"></div>' +
+                '<span class="color-value-text">' + svg.boxBorderColor.toUpperCase() + '</span>' +
+                '<input type="color" class="svg-color-input" data-idx="' + idx + '" data-prop="boxBorderColor" value="' + svg.boxBorderColor + '">' +
+                '</div></div>' +
+                '<div class="form-group"><label>' + borderWidthLabel + '</label>' +
+                '<input type="range" class="svg-slider" data-idx="' + idx + '" data-prop="boxBorderWidth" min="1" max="10" value="' + svg.boxBorderWidth + '">' +
+                '<div class="range-value">' + svg.boxBorderWidth + 'px</div></div>' +
+                '</div>';
+        }
+
+        html += '</div>';
+    }
+    list.innerHTML = html;
+}
+
+document.getElementById('svgList').addEventListener('click', function (e) {
+    const btn = e.target.closest('.svg-edit-btn');
+    if (btn) {
+        const idx = parseInt(btn.dataset.idx);
+        const panel = document.getElementById('svgEdit_' + idx);
+        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        return;
+    }
+    const removeBtn = e.target.closest('.svg-remove-btn');
+    if (removeBtn) {
+        const idx = parseInt(removeBtn.dataset.idx);
+        const svgCode = state.svgs[idx].svgCode;
+        cleanupSvgCache(svgCode);
+        state.svgs.splice(idx, 1);
+        updateSvgList();
+        draw();
+        return;
+    }
+    const wrapper = e.target.closest('.svg-color-wrapper');
+    if (wrapper && !e.target.closest('.inline-color-picker')) {
+        e.preventDefault();
+        e.stopPropagation();
+        const idx = parseInt(wrapper.dataset.idx);
+        const prop = wrapper.dataset.prop;
+        const input = wrapper.querySelector('.svg-color-input');
+        if (!input) return;
+
+        if (activeInlinePicker) {
+            activeInlinePicker.remove();
+            activeInlinePicker = null;
+        }
+
+        const picker = createInlinePicker(input.value, (hex) => {
+            input.value = hex;
+            state.svgs[idx][prop] = hex;
+            const preview = wrapper.querySelector('.color-preview-circle');
+            const text = wrapper.querySelector('.color-value-text');
+            if (preview) preview.style.background = hex;
+            if (text) text.textContent = hex.toUpperCase();
+            
+            // 如果是图标颜色，等待新图片加载完成后再绘制
+            if (prop === 'iconColor') {
+                const svgItem = state.svgs[idx];
+                const img = getSvgImage(svgItem.svgCode, svgItem.iconColor || '#ffffff');
+                if (img.complete && img.naturalWidth > 0) {
+                    draw();
+                } else {
+                    img.onload = draw;
+                }
+            } else {
+                draw();
+            }
+        });
+
+        wrapper.appendChild(picker);
+        activeInlinePicker = picker;
+    }
+});
+
+document.getElementById('svgList').addEventListener('input', function (e) {
+    const slider = e.target.closest('.svg-slider');
+    if (slider) {
+        const idx = parseInt(slider.dataset.idx);
+        const prop = slider.dataset.prop;
+        let val = parseFloat(slider.value);
+        if (prop === 'boxOpacity' || prop === 'opacity') val = val / 100;
+        state.svgs[idx][prop] = val;
+        
+        const valueDisplay = slider.parentElement.querySelector('.range-value');
+        if (valueDisplay) {
+            const suffix = prop.includes('Width') || prop === 'boxSize' || prop === 'radius' || prop === 'size' ? 'px' : '%';
+            valueDisplay.textContent = (prop.includes('Opacity') || prop === 'opacity') ? Math.round(val * 100) + suffix : val + suffix;
+        }
+        
+        draw();
+        return;
     }
 
-    .preview-area {
-        padding: 10px;
+    const radio = e.target.closest('input[type="radio"]');
+    if (radio && radio.dataset.prop === 'boxStyle') {
+        const idx = parseInt(radio.dataset.idx);
+        state.svgs[idx].boxStyle = radio.value;
+        
+        const panel = document.getElementById('svgEdit_' + idx);
+        const gradientSection = panel.querySelector('.svg-gradient-section');
+        const solidSection = panel.querySelector('.svg-solid-section');
+        
+        if (state.svgs[idx].boxStyle === 'gradient') {
+            if (gradientSection) gradientSection.style.display = 'block';
+            if (solidSection) solidSection.style.display = 'none';
+        } else {
+            if (gradientSection) gradientSection.style.display = 'none';
+            if (solidSection) solidSection.style.display = 'block';
+        }
+        
+        draw();
+        return;
     }
 
-    .bottom-bar {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
+    const checkbox = e.target.closest('input[type="checkbox"]');
+    if (checkbox) {
+        const idx = parseInt(checkbox.dataset.idx);
+        const prop = checkbox.dataset.prop;
+        state.svgs[idx][prop] = checkbox.checked;
+        
+        const panel = document.getElementById('svgEdit_' + idx);
+        if (prop === 'boxBorder') {
+            const borderSection = panel.querySelector('.svg-border-section');
+            if (borderSection) {
+                borderSection.style.display = checkbox.checked ? 'flex' : 'none';
+            }
+        }
+        
+        draw();
+        return;
     }
 
-    .platform-grid,
-    .preset-grid {
-        grid-template-columns: repeat(2, 1fr);
+    const select = e.target.closest('.svg-select');
+    if (select) {
+        const idx = parseInt(select.dataset.idx);
+        const prop = select.dataset.prop;
+        state.svgs[idx][prop] = select.value;
+        draw();
+        return;
+    }
+    
+    // 处理颜色输入变化
+    const colorInput = e.target.closest('.svg-color-input');
+    if (colorInput) {
+        const idx = parseInt(colorInput.dataset.idx);
+        const prop = colorInput.dataset.prop;
+        const hex = colorInput.value;
+        state.svgs[idx][prop] = hex;
+        
+        // 获取新颜色的图片，等待加载完成后再绘制
+        const svgItem = state.svgs[idx];
+        const img = getSvgImage(svgItem.svgCode, svgItem.iconColor || '#ffffff');
+        if (img.complete && img.naturalWidth > 0) {
+            draw();
+        } else {
+            img.onload = draw;
+        }
+        return;
+    }
+});
+
+function addSvgFromCode(code) {
+    if (!code || !code.includes('<svg')) {
+        showToast('error', i18n[currentLang].invalidSvg, '');
+        return false;
+    }
+    
+    // 复用最后一个SVG的样式（如果有）
+    const lastSvg = state.svgs[state.svgs.length - 1];
+    const defaultSvgStyle = {
+        x: 0.5,
+        y: lastSvg ? lastSvg.y + 0.05 : 0.25,
+        size: lastSvg ? lastSvg.size : 60,
+        boxSize: lastSvg ? lastSvg.boxSize : 100,
+        boxColor: lastSvg ? lastSvg.boxColor : '#4a90d9',
+        boxOpacity: lastSvg ? lastSvg.boxOpacity : 0.9,
+        boxStyle: lastSvg ? lastSvg.boxStyle : 'solid',
+        showBox: lastSvg ? lastSvg.showBox : true,
+        boxShadow: lastSvg ? lastSvg.boxShadow : true,
+        boxBorder: lastSvg ? lastSvg.boxBorder : false,
+        boxBorderColor: lastSvg ? lastSvg.boxBorderColor : '#ffffff',
+        boxBorderWidth: lastSvg ? lastSvg.boxBorderWidth : 2,
+        boxShape: lastSvg ? lastSvg.boxShape : 'rounded',
+        radius: lastSvg ? lastSvg.radius : 20,
+        opacity: lastSvg ? lastSvg.opacity : 1,
+        iconColor: lastSvg ? lastSvg.iconColor : '#ffffff' // 图标颜色
+    };
+    
+    state.svgs.push({
+        id: ++svgIdCounter,
+        svgCode: code,
+        ...defaultSvgStyle
+    });
+    const iconColor = defaultSvgStyle.iconColor;
+    const img = getSvgImage(code, iconColor);
+    if (img.complete && img.naturalWidth > 0) {
+        draw();
+    } else {
+        img.onload = draw;
+    }
+    document.getElementById('svgInput').value = '';
+    updateSvgList();
+    draw();
+    showToast('success', i18n[currentLang].add, 'SVG icon added');
+    return true;
+}
+
+document.getElementById('addSvgBtn').addEventListener('click', () => {
+    addSvgFromCode(document.getElementById('svgInput').value.trim());
+});
+
+document.getElementById('svgUploadArea').addEventListener('click', () => {
+    document.getElementById('svgFileInput').click();
+});
+
+document.getElementById('svgFileInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        addSvgFromCode(event.target.result);
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+});
+
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+async function calculateFileSizes() {
+    const quality = state.downloadQuality;
+    const formats = ['png', 'jpeg', 'webp'];
+    
+    for (const fmt of formats) {
+        const sizeEl = document.querySelector('.file-size[data-size="' + fmt + '"]');
+        if (!sizeEl) continue;
+        sizeEl.textContent = '计算中...';
+    }
+    
+    for (const fmt of formats) {
+        const sizeEl = document.querySelector('.file-size[data-size="' + fmt + '"]');
+        if (!sizeEl) continue;
+        
+        try {
+            let blob;
+            switch (fmt) {
+                case 'jpeg': {
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = canvas.width;
+                    tempCanvas.height = canvas.height;
+                    const tempCtx = tempCanvas.getContext('2d');
+                    tempCtx.fillStyle = '#ffffff';
+                    tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                    tempCtx.drawImage(canvas, 0, 0);
+                    blob = await new Promise(resolve => tempCanvas.toBlob(resolve, 'image/jpeg', quality));
+                    break;
+                }
+                case 'webp':
+                    blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/webp', quality));
+                    break;
+                case 'png':
+                default:
+                    blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                    break;
+            }
+            
+            if (blob) {
+                sizeEl.textContent = '约 ' + formatFileSize(blob.size);
+            } else {
+                sizeEl.textContent = '不支持';
+            }
+        } catch (e) {
+            sizeEl.textContent = '不支持';
+        }
     }
 }
 
-.sidebar-toggle {
-    display: none;
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
-    z-index: 200;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sidebar-toggle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 30px rgba(102, 126, 234, 0.5);
-}
-
-.sidebar-toggle svg {
-    width: 24px;
-    height: 24px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-}
-
-/* ===== Action Feedback Animations ===== */
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 1;
+function openDownloadModal() {
+    selectedFormat = state.defaultFormat;
+    const radios = document.querySelectorAll('input[name="format"]');
+    for (let r of radios) {
+        r.checked = r.value === selectedFormat;
     }
-    50% {
-        transform: scale(1.05);
-        opacity: 0.8;
+    document.querySelectorAll('.modal-option').forEach(opt => {
+        opt.classList.toggle('selected', opt.querySelector('input').value === selectedFormat);
+    });
+    updateModalQualityControl();
+    document.getElementById('downloadModal').classList.add('show');
+    calculateFileSizes();
+}
+
+function closeDownloadModal() {
+    document.getElementById('downloadModal').classList.remove('show');
+}
+
+window.selectFormat = function (fmt) {
+    selectedFormat = fmt;
+    document.querySelectorAll('input[name="format"]').forEach(r => {
+        r.checked = r.value === fmt;
+    });
+    document.querySelectorAll('.modal-option').forEach(opt => {
+        opt.classList.toggle('selected', opt.querySelector('input').value === fmt);
+    });
+    updateModalQualityControl();
+};
+
+function updateModalQualityControl() {
+    const section = document.getElementById('modalQualitySection');
+    if (selectedFormat === 'png') {
+        section.style.display = 'none';
+    } else {
+        section.style.display = 'block';
+        document.getElementById('modalQuality').value = state.downloadQuality;
+        document.getElementById('modalQualityValue').textContent = Math.round(state.downloadQuality * 100) + '%';
     }
 }
 
-@keyframes shake {
-    0%, 100% {
-        transform: translateX(0);
+let sizeCalcTimer = null;
+document.getElementById('modalQuality').addEventListener('input', function () {
+    state.downloadQuality = parseFloat(this.value);
+    document.getElementById('modalQualityValue').textContent = Math.round(state.downloadQuality * 100) + '%';
+    clearTimeout(sizeCalcTimer);
+    sizeCalcTimer = setTimeout(calculateFileSizes, 300);
+});
+
+window.confirmDownload = function () {
+    closeDownloadModal();
+    document.getElementById('loading').classList.add('show');
+
+    setTimeout(() => {
+        let dataUrl, ext;
+        const quality = state.downloadQuality;
+
+        switch (selectedFormat) {
+            case 'jpeg':
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvas.height;
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCtx.fillStyle = '#ffffff';
+                tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                tempCtx.drawImage(canvas, 0, 0);
+                dataUrl = tempCanvas.toDataURL('image/jpeg', quality);
+                ext = 'jpg';
+                break;
+            case 'webp':
+                dataUrl = canvas.toDataURL('image/webp', quality);
+                ext = 'webp';
+                break;
+            case 'png':
+            default:
+                dataUrl = canvas.toDataURL('image/png');
+                ext = 'png';
+                break;
+        }
+
+        const link = document.createElement('a');
+        link.download = 'cover-' + Date.now() + '.' + ext;
+        link.href = dataUrl;
+        link.click();
+        document.getElementById('loading').classList.remove('show');
+        showToast('success', i18n[currentLang].downloadSuccess, '');
+    }, 500);
+};
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+    const exportState = JSON.parse(JSON.stringify(state));
+    if (bgImageObj) {
+        exportState.bgImageData = canvas.toDataURL('image/jpeg', 0.5);
     }
-    25% {
-        transform: translateX(-4px);
+    const config = JSON.stringify(exportState, null, 2);
+    const blob = new Blob([config], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = 'cover-config-' + Date.now() + '.json';
+    link.href = url;
+    link.click();
+    URL.revokeObjectURL(url);
+    showToast('success', i18n[currentLang].exportSuccess, '');
+});
+
+document.getElementById('importBtn').addEventListener('click', () => {
+    document.getElementById('importFileInput').click();
+});
+
+document.getElementById('importFileInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        try {
+            const config = JSON.parse(event.target.result);
+            if (!config.width || !config.height) {
+                throw new Error('Invalid config');
+            }
+
+            state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+            Object.keys(config).forEach(key => {
+                if (key !== 'bgImageData' && config[key] !== undefined) {
+                    state[key] = config[key];
+                }
+            });
+
+            if (config.bgImageData) {
+                bgImageObj = new Image();
+                bgImageObj.onload = () => {
+                    updateBgImageUI();
+                    initCanvas();
+                };
+                bgImageObj.src = config.bgImageData;
+            }
+
+            syncAllUI();
+            // 确保字体加载完成后再绘制
+            document.fonts.load(state.mainTitleSize + 'px ' + state.mainTitleFont).then(() => {
+                initCanvas();
+            }).catch(() => {
+                initCanvas();
+            });
+            showToast('success', i18n[currentLang].importSuccess, '');
+        } catch (err) {
+            showToast('error', i18n[currentLang].invalidConfig, err.message);
+        }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+});
+
+document.getElementById('bgUploadArea').addEventListener('click', () => {
+    document.getElementById('bgImageInput').click();
+});
+
+document.getElementById('bgImageInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        bgImageObj = new Image();
+        bgImageObj.onload = () => {
+            state.bgImage = event.target.result;
+            updateBgImageUI();
+            draw();
+        };
+        bgImageObj.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+});
+
+function updateBgImageUI() {
+    const hasImage = !!bgImageObj;
+    document.getElementById('bgImagePreviewContainer').style.display = hasImage ? 'block' : 'none';
+    document.getElementById('bgUploadArea').style.display = hasImage ? 'none' : 'block';
+    if (hasImage) {
+        document.getElementById('bgImagePreview').src = bgImageObj.src;
     }
-    75% {
-        transform: translateX(4px);
+}
+
+document.getElementById('removeBgImageBtn').addEventListener('click', () => {
+    bgImageObj = null;
+    state.bgImage = null;
+    updateBgImageUI();
+    draw();
+});
+
+document.getElementById('replaceBgImageBtn').addEventListener('click', () => {
+    document.getElementById('bgImageInput').click();
+});
+
+document.getElementById('bgBlur').addEventListener('input', (e) => {
+    state.bgBlur = parseInt(e.target.value);
+    document.getElementById('bgBlurValue').textContent = state.bgBlur + 'px';
+    draw();
+});
+
+document.getElementById('bgDarken').addEventListener('input', (e) => {
+    state.bgDarken = parseInt(e.target.value);
+    document.getElementById('bgDarkenValue').textContent = state.bgDarken + '%';
+    draw();
+});
+
+// ===== Sync All UI =====
+function syncAllUI() {
+    document.getElementById('bgType').value = state.bgType;
+    document.getElementById('gradientType').value = state.gradientType;
+    document.getElementById('gradientAngle').value = state.gradientAngle;
+    document.getElementById('solidColor').value = state.solidColor;
+    document.getElementById('bgBlur').value = state.bgBlur;
+    document.getElementById('bgDarken').value = state.bgDarken;
+
+    document.getElementById('mainTitle').value = state.mainTitle;
+    document.getElementById('mainTitleSize').value = state.mainTitleSize;
+    document.getElementById('mainTitleColor').value = state.mainTitleColor;
+    document.getElementById('mainTitleFontSelect').value = state.mainTitleFont;
+
+    document.getElementById('defaultFormat').value = state.defaultFormat;
+    document.getElementById('downloadQuality').value = state.downloadQuality;
+
+
+    document.getElementById('meshComplexity').value = state.meshComplexity;
+
+    document.getElementById('noiseIntensity').value = state.noiseIntensity;
+    document.getElementById('noiseScale').value = state.noiseScale;
+    document.getElementById('noiseColor').value = state.noiseColor;
+    document.getElementById('noiseBgColor').value = state.noiseBgColor;
+
+    document.querySelectorAll('.platform-item').forEach(el => {
+        el.classList.remove('active');
+        if (parseInt(el.dataset.w) === state.width && parseInt(el.dataset.h) === state.height) {
+            el.classList.add('active');
+        }
+    });
+
+    document.getElementById('gradientControls').style.display = state.bgType === 'gradient' ? 'block' : 'none';
+    document.getElementById('solidControls').style.display = state.bgType === 'solid' ? 'block' : 'none';
+    document.getElementById('imageControls').style.display = state.bgType === 'image' ? 'block' : 'none';
+    document.getElementById('meshControls').style.display = state.bgType === 'mesh' ? 'block' : 'none';
+    document.getElementById('noiseControls').style.display = state.bgType === 'noise' ? 'block' : 'none';
+    document.getElementById('angleControl').style.display = state.gradientType === 'linear' ? 'block' : 'none';
+    document.getElementById('randomColorBtn').style.display = state.bgType === 'gradient' ? 'flex' : 'none';
+
+    updateColorBars();
+    updateColorPreview('mainTitleColor', 'mainTitleColorPreview', 'mainTitleColorText');
+    updateColorPreview('solidColor', 'solidColorPreview', 'solidColorText');
+    updateColorPreview('noiseColor', 'noiseColorPreview', 'noiseColorText');
+    updateColorPreview('noiseBgColor', 'noiseBgColorPreview', 'noiseBgColorText');
+
+    document.getElementById('mainTitleSizeValue').textContent = state.mainTitleSize + 'px';
+    document.getElementById('angleValue').textContent = state.gradientAngle + '°';
+    document.getElementById('downloadQualityValue').textContent = Math.round(state.downloadQuality * 100) + '%';
+    document.getElementById('bgBlurValue').textContent = state.bgBlur + 'px';
+    document.getElementById('bgDarkenValue').textContent = state.bgDarken + '%';
+    document.getElementById('meshComplexityValue').textContent = state.meshComplexity;
+    document.getElementById('noiseIntensityValue').textContent = state.noiseIntensity + '%';
+    document.getElementById('noiseScaleValue').textContent = state.noiseScale;
+
+
+
+    updatePosDisplay();
+    updateSvgList();
+    updateCustomTextList();
+
+
+}
+
+// 全局 color-picker-wrapper 点击事件委托
+document.addEventListener('click', function(e) {
+    const wrapper = e.target.closest('.color-picker-wrapper[data-color-target]');
+    if (wrapper && !e.target.closest('.inline-color-picker')) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (activeInlinePicker) {
+            activeInlinePicker.remove();
+            activeInlinePicker = null;
+        }
+
+        const targetId = wrapper.dataset.colorTarget;
+        const input = document.getElementById(targetId);
+        if (!input) return;
+
+        const previewId = targetId + 'Preview';
+        const textId = targetId + 'Text';
+        const stateKeyMap = {
+            'mainTitleColor': 'mainTitleColor',
+            'solidColor': 'solidColor',
+            'noiseColor': 'noiseColor',
+            'noiseBgColor': 'noiseBgColor'
+        };
+        const stateKey = stateKeyMap[targetId];
+        if (!stateKey) return;
+
+        const picker = createInlinePicker(input.value, (hex) => {
+            input.value = hex;
+            const preview = document.getElementById(previewId);
+            const text = document.getElementById(textId);
+            if (preview) preview.style.background = hex;
+            if (text) text.textContent = hex.toUpperCase();
+            state[stateKey] = hex;
+            draw();
+        });
+
+        wrapper.appendChild(picker);
+        activeInlinePicker = picker;
     }
-}
+});
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+// ===== Event Listeners =====
+document.getElementById('resetNavBtn').addEventListener('click', async () => {
+    const confirmed = await showConfirm(
+        i18n[currentLang].resetTitle,
+        i18n[currentLang].resetConfirm
+    );
+    if (!confirmed) return;
+
+    state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    bgImageObj = null;
+    svgIdCounter = 0;
+    customTextIdCounter = 0;
+    cleanupAllSvgCache();
+
+    syncAllUI();
+    updateBgImageUI();
+    // 确保字体加载完成后再绘制
+    document.fonts.load(state.mainTitleSize + 'px ' + state.mainTitleFont).then(() => {
+        initCanvas();
+    }).catch(() => {
+        initCanvas();
+    });
+    showToast('success', i18n[currentLang].resetSuccess, '');
+});
+
+document.getElementById('randomColorBtn').addEventListener('click', generateRandomColors);
+
+document.getElementById('bgType').addEventListener('change', e => {
+    state.bgType = e.target.value;
+    document.getElementById('gradientControls').style.display = state.bgType === 'gradient' ? 'block' : 'none';
+    document.getElementById('solidControls').style.display = state.bgType === 'solid' ? 'block' : 'none';
+    document.getElementById('imageControls').style.display = state.bgType === 'image' ? 'block' : 'none';
+    document.getElementById('meshControls').style.display = state.bgType === 'mesh' ? 'block' : 'none';
+    document.getElementById('noiseControls').style.display = state.bgType === 'noise' ? 'block' : 'none';
+    document.getElementById('randomColorBtn').style.display = state.bgType === 'gradient' ? 'flex' : 'none';
+    draw();
+});
+
+document.getElementById('gradientType').addEventListener('change', e => {
+    state.gradientType = e.target.value;
+    document.getElementById('angleControl').style.display = state.gradientType === 'linear' ? 'block' : 'none';
+    draw();
+});
+
+document.getElementById('gradientAngle').addEventListener('input', e => {
+    state.gradientAngle = parseInt(e.target.value);
+    document.getElementById('angleValue').textContent = e.target.value + '°';
+    draw();
+});
+
+document.getElementById('addColorStop').addEventListener('click', () => {
+    if (state.gradientStops < 3) {
+        state.gradientStops = 3;
+        updateColorBars();
+        draw();
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+});
+
+document.getElementById('removeColorStop').addEventListener('click', () => {
+    if (state.gradientStops > 2) {
+        state.gradientStops = 2;
+        updateColorBars();
+        draw();
     }
-}
+});
 
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
+
+
+document.getElementById('mainTitle').addEventListener('input', e => {
+    state.mainTitle = e.target.value;
+    draw();
+});
+
+document.getElementById('mainTitleSize').addEventListener('input', e => {
+    state.mainTitleSize = parseInt(e.target.value);
+    document.getElementById('mainTitleSizeValue').textContent = e.target.value + 'px';
+    draw();
+});
+
+document.getElementById('mainTitleFontSelect').addEventListener('change', e => {
+    state.mainTitleFont = e.target.value;
+    // 确保字体加载完成后再绘制
+    document.fonts.load(state.mainTitleSize + 'px ' + state.mainTitleFont).then(() => {
+        draw();
+    }).catch(() => {
+        draw();
+    });
+});
+
+
+
+document.querySelectorAll('.platform-item').forEach(el => {
+    el.addEventListener('click', () => {
+        document.querySelectorAll('.platform-item').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+        state.width = parseInt(el.dataset.w);
+        state.height = parseInt(el.dataset.h);
+        initCanvas();
+    });
+});
+
+
+
+document.getElementById('downloadNavBtn').addEventListener('click', openDownloadModal);
+
+document.getElementById('defaultFormat').addEventListener('change', e => {
+    state.defaultFormat = e.target.value;
+});
+
+document.getElementById('downloadQuality').addEventListener('input', e => {
+    state.downloadQuality = parseFloat(e.target.value);
+    document.getElementById('downloadQualityValue').textContent = Math.round(state.downloadQuality * 100) + '%';
+});
+
+document.getElementById('downloadModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('downloadModal')) {
+        closeDownloadModal();
     }
-    to {
-        opacity: 1;
-        transform: scale(1);
+});
+
+// Mesh events
+document.getElementById('meshComplexity').addEventListener('input', e => {
+    state.meshComplexity = parseInt(e.target.value);
+    document.getElementById('meshComplexityValue').textContent = e.target.value;
+    draw();
+});
+
+['meshColor1', 'meshColor2', 'meshColor3', 'meshColor4'].forEach((id, idx) => {
+    const bar = document.getElementById(id);
+    if (bar) {
+        bar.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (activeInlinePicker) {
+                activeInlinePicker.remove();
+                activeInlinePicker = null;
+            }
+            const picker = createInlinePicker(state[id], (hex) => {
+                state[id] = hex;
+                bar.style.background = hex;
+                bar.setAttribute('data-color', hex);
+                draw();
+            });
+            bar.parentElement.appendChild(picker);
+            activeInlinePicker = picker;
+        });
     }
+});
+
+// Noise events
+document.getElementById('noiseIntensity').addEventListener('input', e => {
+    state.noiseIntensity = parseInt(e.target.value);
+    document.getElementById('noiseIntensityValue').textContent = e.target.value + '%';
+    draw();
+});
+
+document.getElementById('noiseScale').addEventListener('input', e => {
+    state.noiseScale = parseInt(e.target.value);
+    document.getElementById('noiseScaleValue').textContent = e.target.value;
+    draw();
+});
+
+
+
+
+
+window.addEventListener('resize', resetCanvasScale);
+
+// ===== Color bar click handlers =====
+function attachColorBarPicker(barId, stateKey) {
+    const bar = document.getElementById(barId);
+    if (!bar) return;
+    bar.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (activeInlinePicker) {
+            activeInlinePicker.remove();
+            activeInlinePicker = null;
+        }
+        const picker = createInlinePicker(state[stateKey], (hex) => {
+            state[stateKey] = hex;
+            updateColorBars();
+            draw();
+        });
+        bar.parentElement.appendChild(picker);
+        activeInlinePicker = picker;
+    });
 }
 
-@keyframes successCheck {
-    0% {
-        stroke-dashoffset: 24;
-    }
-    100% {
-        stroke-dashoffset: 0;
-    }
+attachColorBarPicker('colorBar1', 'color1');
+attachColorBarPicker('colorBar2', 'color2');
+attachColorBarPicker('colorBar3', 'color3');
+
+// ===== Keyboard Shortcuts =====
+function initShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        
+        // Ctrl/Cmd + S: Export Config
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            e.preventDefault();
+            document.getElementById('exportBtn')?.click();
+        }
+        
+        // Ctrl/Cmd + D: Download
+        if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+            e.preventDefault();
+            document.getElementById('downloadNavBtn')?.click();
+        }
+        
+        // Ctrl/Cmd + R: Reset
+        if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+            e.preventDefault();
+            document.getElementById('resetNavBtn')?.click();
+        }
+        
+        // Ctrl/Cmd + B: Toggle Sidebar (Mobile)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+            e.preventDefault();
+            document.getElementById('sidebarToggle')?.click();
+        }
+    });
 }
 
-.nav-item:active {
-    animation: pulse 0.2s ease-out;
-}
-
-.btn:active {
-    animation: pulse 0.15s ease-out;
-}
-
-.card {
-    animation: fadeInUp 0.3s ease-out;
-}
-
-.card:nth-child(2) { animation-delay: 0.05s; }
-.card:nth-child(3) { animation-delay: 0.1s; }
-.card:nth-child(4) { animation-delay: 0.15s; }
-.card:nth-child(5) { animation-delay: 0.2s; }
-
-.toast {
-    animation: fadeInUp 0.3s ease-out;
-}
-
-.toast.success .toast-icon svg {
-    stroke-dasharray: 24;
-    stroke-dashoffset: 24;
-    animation: successCheck 0.4s ease-out 0.2s forwards;
-}
-
-.nav-item[disabled]:active {
-    animation: none;
-}
-
-.preset-item:active {
-    animation: scaleIn 0.15s ease-out;
-}
-
-.platform-item:active {
-    animation: scaleIn 0.15s ease-out;
-}
-
-/* ===== SVG Style Options ===== */
-.svg-style-section {
-    margin-bottom: 12px;
-}
-
-.svg-style-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.svg-style-option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 12px;
-    background: #1a1a1a;
-    border: 2px solid #333;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 12px;
-    color: #888;
-}
-
-.svg-style-option:hover {
-    border-color: #667eea;
-    color: #fff;
-}
-
-.svg-style-option input[type="radio"] {
-    display: none;
-}
-
-.svg-style-option:has(input:checked) {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-    border-color: #667eea;
-    color: #a5b4fc;
-}
-
-.svg-effect-row {
-    display: flex;
-    gap: 12px;
-    margin: 12px 0;
-}
-
-.svg-toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 12px;
-    color: #888;
-}
-
-.svg-toggle:hover {
-    border-color: #444;
-    color: #fff;
-}
-
-.svg-toggle input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: #667eea;
-    cursor: pointer;
-}
-
-.svg-toggle:has(input:checked) {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
-    border-color: #667eea;
-    color: #a5b4fc;
-}
-
-.svg-select {
-    width: 100%;
-    padding: 8px 12px;
-    background: #242424;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-.svg-select:focus {
-    border-color: #667eea;
-    outline: none;
-}
-
-.svg-gradient-section,
-.svg-solid-section,
-.svg-border-section {
-    margin-top: 12px;
-}
+// ===== Init =====
+initShortcuts();
+syncAllUI();
+updateBgImageUI();
+// 确保字体加载完成后再初始化画布
+document.fonts.ready.then(() => {
+    initCanvas();
+}).catch(() => {
+    initCanvas();
+});
