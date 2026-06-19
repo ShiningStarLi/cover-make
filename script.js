@@ -2,6 +2,8 @@
 const i18n = {
     zh: {
         randomColor: '随机配色', reset: '重置', download: '下载封面',
+        basicSettings: '基础设置', textContent: '文字内容', icons: '图标',
+        presetTemplates: '预设模板',
         platformSize: '平台尺寸', blogCover: '博客封面', wechat: '公众号',
         xiaohongshu: '小红书', videoCover: '视频封面', pptCover: 'PPT 封面',
         douyin: '抖音/竖版', bgSettings: '背景设置', bgType: '背景类型',
@@ -15,9 +17,9 @@ const i18n = {
         fontSize: '字号', color: '颜色', fontFamily: '字体', position: '位置',
         dragHint: '(拖拽画布调整)', opacity: '透明度',
         addIcon: '添加图标', add: '添加图标', iconList: '图标列表',
-        noIcons: '暂无图标<br>请从 yesicon.app 添加 SVG',
+        noIcons: '暂无图标<br>请从 <a href="https://yesicon.app" target="_blank" rel="noopener noreferrer">yesicon.app</a> 添加 SVG',
         uploadSvg: '点击上传 SVG 文件', uploadSvgHint: '支持 .svg 格式',
-        svgHint: '💡 使用步骤：<br>1. 访问 yesicon.app 搜索图标<br>2. 点击图标 → 复制 SVG 代码<br>3. 粘贴到下方输入框，点击添加<br>4. 或上传 .svg 文件',
+        svgHint: '💡 使用步骤：<br>1. 访问 <a href="https://yesicon.app" target="_blank" rel="noopener noreferrer">yesicon.app</a> 搜索图标<br>2. 点击图标 → 复制 SVG 代码<br>3. 粘贴到下方输入框，点击添加<br>4. 或上传 .svg 文件',
         notoSans: '思源黑体', notoSerif: '思源宋体',
         xiaowei: '站酷小薇体', kuaile: '站酷快乐体', mashan: '马善政毛笔',
         huangyou: '站酷庆科黄油体', longcang: '龙苍手书', zhimang: '志莽行书',
@@ -30,11 +32,10 @@ const i18n = {
         export: '导出配置', import: '导入配置', downloadSettings: '下载设置',
         defaultFormat: '默认下载格式', png: 'PNG (无损，推荐)',
         jpeg: 'JPEG (有损压缩，体积小)', webp: 'WebP (现代格式，兼容性好)',
-        avif: 'AVIF (最新格式，体积最小)', quality: 'JPEG/WebP/AVIF 质量',
+        quality: 'JPEG/WebP 质量',
         downloadFormat: '选择下载格式', pngDesc: '无损压缩，透明背景，文件较大',
         jpegDesc: '有损压缩，体积较小，不支持透明',
         webpDesc: '现代格式，压缩率高，兼容性好',
-        avifDesc: '最新格式，体积最小，浏览器兼容性有限',
         compressQuality: '压缩质量', cancel: '取消', confirmDownload: '确认下载',
         generating: '正在生成...', resetConfirm: '确定要重置所有设置吗？此操作不可撤销。',
         resetTitle: '确认重置', configImported: '配置导入成功！',
@@ -52,6 +53,8 @@ const i18n = {
 ,
     en: {
         randomColor: 'Random Color', reset: 'Reset', download: 'Download',
+        basicSettings: 'Basic Settings', textContent: 'Text Content', icons: 'Icons',
+        presetTemplates: 'Preset Templates',
         platformSize: 'Platform Size', blogCover: 'Blog Cover', wechat: 'WeChat',
         xiaohongshu: 'Xiaohongshu', videoCover: 'Video Cover', pptCover: 'PPT Cover',
         douyin: 'Douyin/Portrait', bgSettings: 'Background', bgType: 'Background Type',
@@ -65,9 +68,9 @@ const i18n = {
         fontSize: 'Font Size', color: 'Color', fontFamily: 'Font', position: 'Position',
         dragHint: '(Drag on canvas)', opacity: 'Opacity',
         addIcon: 'Add Icon', add: 'Add Icon', iconList: 'Icon List',
-        noIcons: 'No icons yet<br>Add SVG from yesicon.app',
+        noIcons: 'No icons yet<br>Add SVG from <a href="https://yesicon.app" target="_blank" rel="noopener noreferrer">yesicon.app</a>',
         uploadSvg: 'Click to upload SVG file', uploadSvgHint: 'Supports .svg format',
-        svgHint: '💡 Steps:<br>1. Visit yesicon.app<br>2. Copy SVG code<br>3. Paste below and add<br>4. Or upload .svg file',
+        svgHint: '💡 Steps:<br>1. Visit <a href="https://yesicon.app" target="_blank" rel="noopener noreferrer">yesicon.app</a><br>2. Copy SVG code<br>3. Paste below and add<br>4. Or upload .svg file',
         notoSans: 'Noto Sans SC', notoSerif: 'Noto Serif SC',
         xiaowei: 'ZCOOL XiaoWei', kuaile: 'ZCOOL KuaiLe', mashan: 'Ma Shan Zheng',
         huangyou: 'ZCOOL HuangYou', longcang: 'Long Cang', zhimang: 'Zhi Mang Xing',
@@ -80,11 +83,10 @@ const i18n = {
         export: 'Export Config', import: 'Import Config', downloadSettings: 'Download Settings',
         defaultFormat: 'Default Format', png: 'PNG (Lossless, Recommended)',
         jpeg: 'JPEG (Compressed, Small)', webp: 'WebP (Modern, Compatible)',
-        avif: 'AVIF (Newest, Smallest)', quality: 'JPEG/WebP/AVIF Quality',
+        quality: 'JPEG/WebP Quality',
         downloadFormat: 'Select Download Format', pngDesc: 'Lossless, transparent, larger file',
         jpegDesc: 'Compressed, smaller, no transparency',
         webpDesc: 'Modern format, high compression, compatible',
-        avifDesc: 'Newest format, smallest, limited browser support',
         compressQuality: 'Compression Quality', cancel: 'Cancel', confirmDownload: 'Confirm Download',
         generating: 'Generating...', resetConfirm: 'Reset all settings? This cannot be undone.',
         resetTitle: 'Confirm Reset', configImported: 'Config imported successfully!',
@@ -123,11 +125,7 @@ function setLanguage(lang) {
         font: lang === 'zh' ? '字体样式' : 'Font Style',
         config: lang === 'zh' ? '配置管理' : 'Config Management'
     };
-    document.querySelectorAll('.nav-item[data-tab]').forEach(item => {
-        const tab = item.dataset.tab;
-        const tooltip = item.querySelector('.nav-tooltip');
-        if (tooltip && tooltips[tab]) tooltip.textContent = tooltips[tab];
-    });
+    // nav-tooltip 已通过 data-i18n 自动更新
     if (currentPanel) {
         document.getElementById('panelTitle').textContent = panelTitles[currentPanel][lang];
     }
@@ -387,11 +385,7 @@ const DEFAULT_STATE = {
     solidColor: '#1a1a1a',
     bgImage: null, bgBlur: 0, bgDarken: 0,
     mainTitleFont: "'Smiley Sans', sans-serif",
-    mainTitle: 'Cover Designer', mainTitleSize: 80, mainTitleColor: '#ffffff', mainTitleX: 0.5, mainTitleY: 0.42,
-    subTitleFont: "'Noto Sans SC', sans-serif",
-    subTitle: '创建令人惊艳的封面设计', subTitleSize: 26, subTitleColor: '#f0f0f0', subTitleOpacity: 0.85, subTitleX: 0.5, subTitleY: 0.54,
-    authorFont: "'Noto Sans SC', sans-serif",
-    author: 'Eucalyptus', authorSize: 18, authorColor: '#ffffff', authorOpacity: 0.6, authorX: 0.5, authorY: 0.88,
+    mainTitle: 'Cover Designer', mainTitleSize: 80, mainTitleColor: '#ffffff', mainTitleX: 0.5, mainTitleY: 0.5,
     customTexts: [],
     svgs: [],
     defaultFormat: 'png',
@@ -495,11 +489,47 @@ function hslToHex(hsl) {
 }
 
 function generateRandomColors() {
-    const baseHue = Math.random() * 360;
-    state.color1 = hslToHex('hsl(' + baseHue + ', 75%, 55%)');
-    state.color2 = hslToHex('hsl(' + ((baseHue + 30 + Math.random() * 60) % 360) + ', 70%, 50%)');
+    // 提取当前颜色的色相，用于确保新颜色有足够差异
+    let prevHue = null;
+    try {
+        const tmp = document.createElement('div');
+        tmp.style.color = state.color1;
+        document.body.appendChild(tmp);
+        const rgb = getComputedStyle(tmp).color;
+        document.body.removeChild(tmp);
+        const m = rgb.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+        if (m) {
+            const r = parseInt(m[1]) / 255, g = parseInt(m[2]) / 255, b = parseInt(m[3]) / 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            if (max !== min) {
+                let h;
+                if (max === r) h = ((g - b) / (max - min) + 6) % 6;
+                else if (max === g) h = (b - r) / (max - min) + 2;
+                else h = (r - g) / (max - min) + 4;
+                prevHue = h * 60;
+            }
+        }
+    } catch (e) {}
+
+    // 生成与之前颜色差异至少80度的baseHue
+    let baseHue = Math.random() * 360;
+    if (prevHue !== null) {
+        let diff = Math.abs(baseHue - prevHue);
+        if (diff > 180) diff = 360 - diff;
+        if (diff < 80) {
+            baseHue = (prevHue + 120 + Math.random() * 120) % 360;
+        }
+    }
+
+    // 三个颜色之间至少相隔90度，确保对比度
+    const hue1 = baseHue;
+    const hue2 = (baseHue + 90 + Math.random() * 90) % 360;
+    const hue3 = (baseHue + 210 + Math.random() * 90) % 360;
+
+    state.color1 = hslToHex('hsl(' + hue1 + ', 75%, 55%)');
+    state.color2 = hslToHex('hsl(' + hue2 + ', 70%, 50%)');
     if (state.gradientStops >= 3) {
-        state.color3 = hslToHex('hsl(' + ((baseHue + 120 + Math.random() * 60) % 360) + ', 65%, 55%)');
+        state.color3 = hslToHex('hsl(' + hue3 + ', 65%, 55%)');
     }
     state.gradientAngle = Math.floor(Math.random() * 360);
     document.getElementById('gradientAngle').value = state.gradientAngle;
@@ -536,15 +566,23 @@ function updateColorPreview(inputId, previewId, textId) {
 // ===== SVG Cache =====
 const svgImageCache = new Map(); // 存储 { svgCode: { img: Image, url: string } }
 
-function getSvgImage(svgCode) {
-    if (svgImageCache.has(svgCode)) {
-        return svgImageCache.get(svgCode).img;
+function getSvgImage(svgCode, iconColor = '#ffffff') {
+    // 如果SVG包含currentColor，替换为指定颜色
+    let processedSvg = svgCode;
+    if (svgCode.includes('currentColor')) {
+        processedSvg = svgCode.replace(/currentColor/g, iconColor);
     }
+    
+    const cacheKey = processedSvg; // 使用处理后的SVG作为缓存key
+    if (svgImageCache.has(cacheKey)) {
+        return svgImageCache.get(cacheKey).img;
+    }
+    
     const img = new Image();
-    const svgBlob = new Blob([svgCode], { type: 'image/svg+xml' });
+    const svgBlob = new Blob([processedSvg], { type: 'image/svg+xml' });
     const url = URL.createObjectURL(svgBlob);
     img.src = url;
-    svgImageCache.set(svgCode, { img, url });
+    svgImageCache.set(cacheKey, { img, url });
     return img;
 }
 
@@ -706,16 +744,6 @@ function draw() {
     wrapTextCenter(ctx, state.mainTitle, state.mainTitleX * state.width, state.mainTitleY * state.height, state.width * 0.84, state.mainTitleSize * 1.4);
     ctx.shadowColor = 'transparent';
 
-    const subRgb = hexToRgb(state.subTitleColor);
-    ctx.font = '300 ' + state.subTitleSize + 'px ' + state.subTitleFont;
-    ctx.fillStyle = 'rgba(' + subRgb.r + ',' + subRgb.g + ',' + subRgb.b + ',' + state.subTitleOpacity + ')';
-    ctx.fillText(state.subTitle, state.subTitleX * state.width, state.subTitleY * state.height);
-
-    const authRgb = hexToRgb(state.authorColor);
-    ctx.font = '400 ' + state.authorSize + 'px ' + state.authorFont;
-    ctx.fillStyle = 'rgba(' + authRgb.r + ',' + authRgb.g + ',' + authRgb.b + ',' + state.authorOpacity + ')';
-    ctx.fillText(state.author, state.authorX * state.width, state.authorY * state.height);
-
     // Custom texts
     state.customTexts.forEach(ct => {
         const ctRgb = hexToRgb(ct.color);
@@ -729,7 +757,7 @@ function draw() {
     });
     // Draw SVGs
     state.svgs.forEach(svgItem => {
-        const img = getSvgImage(svgItem.svgCode);
+        const img = getSvgImage(svgItem.svgCode, svgItem.iconColor || '#ffffff');
         if (img.complete && img.naturalWidth > 0) {
             ctx.save();
             const x = svgItem.x * state.width;
@@ -767,38 +795,132 @@ function draw() {
                 }
 
                 if (svgItem.boxStyle === 'glass') {
-                    // 毛玻璃效果 - 多层叠加
-                    ctx.globalAlpha = svgItem.boxOpacity * 0.6;
-                    ctx.fillStyle = svgItem.boxColor;
-                    ctx.fill();
+                    // 毛玻璃效果 - 真实的背景模糊
                     
-                    // 添加内阴影效果
+                    // 1. 创建离屏canvas并截取背景
+                    const offCanvas = document.createElement('canvas');
+                    offCanvas.width = boxSize;
+                    offCanvas.height = boxSize;
+                    const offCtx = offCanvas.getContext('2d');
+                    
+                    // 从主canvas截取该区域的内容
+                    offCtx.drawImage(canvas, boxX, boxY, boxSize, boxSize, 0, 0, boxSize, boxSize);
+                    
+                    // 应用模糊滤镜
+                    offCtx.filter = 'blur(8px)';
+                    offCtx.globalCompositeOperation = 'copy';
+                    offCtx.drawImage(offCanvas, 0, 0);
+                    offCtx.filter = 'none';
+                    offCtx.globalCompositeOperation = 'source-over';
+                    
+                    // 2. 将模糊后的背景绘制回主canvas，限制在框内
                     ctx.save();
-                    ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
-                    ctx.shadowBlur = 8;
-                    ctx.shadowOffsetX = 2;
-                    ctx.shadowOffsetY = 2;
+                    ctx.beginPath();
+                    if (svgItem.boxShape === 'circle') {
+                        ctx.arc(x, y, boxSize / 2, 0, Math.PI * 2);
+                    } else if (svgItem.boxShape === 'diamond') {
+                        ctx.moveTo(x, boxY);
+                        ctx.lineTo(x + boxSize / 2, y);
+                        ctx.lineTo(x, boxY + boxSize);
+                        ctx.lineTo(x - boxSize / 2, y);
+                        ctx.closePath();
+                    } else {
+                        if (ctx.roundRect) {
+                            ctx.roundRect(boxX, boxY, boxSize, boxSize, radius);
+                        } else {
+                            ctx.rect(boxX, boxY, boxSize, boxSize);
+                        }
+                    }
+                    ctx.clip();
+                    ctx.globalAlpha = svgItem.boxOpacity;
+                    ctx.drawImage(offCanvas, boxX, boxY);
+                    ctx.restore();
                     
-                    // 创建渐变边框效果
-                    const gradient = ctx.createLinearGradient(boxX, boxY, boxX + boxSize, boxY + boxSize);
-                    gradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)');
-                    gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)');
-                    gradient.addColorStop(1, 'rgba(0, 0, 0, 0.2)');
+                    // 3. 添加白色叠加层，增强玻璃感
+                    ctx.save();
+                    ctx.beginPath();
+                    if (svgItem.boxShape === 'circle') {
+                        ctx.arc(x, y, boxSize / 2, 0, Math.PI * 2);
+                    } else if (svgItem.boxShape === 'diamond') {
+                        ctx.moveTo(x, boxY);
+                        ctx.lineTo(x + boxSize / 2, y);
+                        ctx.lineTo(x, boxY + boxSize);
+                        ctx.lineTo(x - boxSize / 2, y);
+                        ctx.closePath();
+                    } else {
+                        if (ctx.roundRect) {
+                            ctx.roundRect(boxX, boxY, boxSize, boxSize, radius);
+                        } else {
+                            ctx.rect(boxX, boxY, boxSize, boxSize);
+                        }
+                    }
+                    ctx.clip();
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                    ctx.globalAlpha = svgItem.boxOpacity;
+                    ctx.fill();
+                    ctx.restore();
                     
-                    ctx.globalAlpha = 1;
-                    ctx.strokeStyle = gradient;
-                    ctx.lineWidth = 2;
+                    // 4. 顶部高光（模拟光照反射）
+                    ctx.save();
+                    const highlightGrad = ctx.createLinearGradient(boxX, boxY, boxX, boxY + boxSize * 0.4);
+                    highlightGrad.addColorStop(0, 'rgba(255, 255, 255, 0.5)');
+                    highlightGrad.addColorStop(0.3, 'rgba(255, 255, 255, 0.15)');
+                    highlightGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    
+                    ctx.beginPath();
+                    if (svgItem.boxShape === 'circle') {
+                        ctx.arc(x, y, boxSize / 2, 0, Math.PI * 2);
+                    } else if (svgItem.boxShape === 'diamond') {
+                        ctx.moveTo(x, boxY);
+                        ctx.lineTo(x + boxSize / 2, y);
+                        ctx.lineTo(x, boxY + boxSize);
+                        ctx.lineTo(x - boxSize / 2, y);
+                        ctx.closePath();
+                    } else {
+                        if (ctx.roundRect) {
+                            ctx.roundRect(boxX, boxY, boxSize, boxSize, radius);
+                        } else {
+                            ctx.rect(boxX, boxY, boxSize, boxSize);
+                        }
+                    }
+                    ctx.clip();
+                    ctx.fillStyle = highlightGrad;
+                    ctx.globalAlpha = svgItem.boxOpacity * 0.8;
+                    ctx.fill();
+                    ctx.restore();
+                    
+                    // 5. 白色边框（模拟玻璃边缘反光）
+                    ctx.save();
+                    ctx.globalAlpha = svgItem.boxOpacity * 0.5;
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.lineWidth = 1.2;
                     ctx.stroke();
                     ctx.restore();
                     
-                    // 添加高光效果
+                    // 6. 底部暗角（增加立体感）
                     ctx.save();
-                    const highlightGradient = ctx.createLinearGradient(boxX, boxY, boxX, boxY + boxSize);
-                    highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
-                    highlightGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.05)');
-                    highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    const shadowGrad = ctx.createLinearGradient(boxX, boxY + boxSize * 0.7, boxX, boxY + boxSize);
+                    shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+                    shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0.2)');
                     
-                    ctx.fillStyle = highlightGradient;
+                    ctx.beginPath();
+                    if (svgItem.boxShape === 'circle') {
+                        ctx.arc(x, y, boxSize / 2, 0, Math.PI * 2);
+                    } else if (svgItem.boxShape === 'diamond') {
+                        ctx.moveTo(x, boxY);
+                        ctx.lineTo(x + boxSize / 2, y);
+                        ctx.lineTo(x, boxY + boxSize);
+                        ctx.lineTo(x - boxSize / 2, y);
+                        ctx.closePath();
+                    } else {
+                        if (ctx.roundRect) {
+                            ctx.roundRect(boxX, boxY, boxSize, boxSize, radius);
+                        } else {
+                            ctx.rect(boxX, boxY, boxSize, boxSize);
+                        }
+                    }
+                    ctx.clip();
+                    ctx.fillStyle = shadowGrad;
                     ctx.globalAlpha = 1;
                     ctx.fill();
                     ctx.restore();
@@ -880,9 +1002,7 @@ function hitTest(x, y) {
         }
     }
     const targets = [
-        { key: 'mainTitle', x: state.mainTitleX * state.width, y: state.mainTitleY * state.height, size: state.mainTitleSize },
-        { key: 'subTitle', x: state.subTitleX * state.width, y: state.subTitleY * state.height, size: state.subTitleSize },
-        { key: 'author', x: state.authorX * state.width, y: state.authorY * state.height, size: state.authorSize }
+        { key: 'mainTitle', x: state.mainTitleX * state.width, y: state.mainTitleY * state.height, size: state.mainTitleSize }
     ];
     for (let t of targets) {
         const dx = x - t.x, dy = y - t.y;
@@ -967,8 +1087,6 @@ canvas.addEventListener('touchend', () => { isDragging = false; dragTarget = nul
 
 function updatePosDisplay() {
     document.getElementById('mainTitlePos').textContent = 'X: ' + Math.round(state.mainTitleX * state.width) + ' | Y: ' + Math.round(state.mainTitleY * state.height);
-    document.getElementById('subTitlePos').textContent = 'X: ' + Math.round(state.subTitleX * state.width) + ' | Y: ' + Math.round(state.subTitleY * state.height);
-    document.getElementById('authorPos').textContent = 'X: ' + Math.round(state.authorX * state.width) + ' | Y: ' + Math.round(state.authorY * state.height);
 }
 
 // ===== Custom Text =====
@@ -1016,6 +1134,19 @@ function updateCustomTextList() {
             '<option value="\'ZCOOL CangErYuYang\', cursive"' + (ctFont === "'ZCOOL CangErYuYang', cursive" ? ' selected' : '') + '>站酷仓耳渔阳</option>' +
             '<option value="\'ZCOOL Addict\', sans-serif"' + (ctFont === "'ZCOOL Addict', sans-serif" ? ' selected' : '') + '>站酷 addicts</option>' +
             '<option value="\'ZCOOL GaoDuanHei\', sans-serif"' + (ctFont === "'ZCOOL GaoDuanHei', sans-serif" ? ' selected' : '') + '>站酷高端黑</option>' +
+            '<option value="\'ZCOOL AiLe\', cursive"' + (ctFont === "'ZCOOL AiLe', cursive" ? ' selected' : '') + '>站酷爱乐体</option>' +
+            '<option value="\'ZCOOL KuBi\', sans-serif"' + (ctFont === "'ZCOOL KuBi', sans-serif" ? ' selected' : '') + '>站酷酷毕体</option>' +
+            '<option value="\'ZCOOL TeZhuan\', sans-serif"' + (ctFont === "'ZCOOL TeZhuan', sans-serif" ? ' selected' : '') + '>站酷特专体</option>' +
+            '<option value="\'Alimama FangDaTi\', sans-serif"' + (ctFont === "'Alimama FangDaTi', sans-serif" ? ' selected' : '') + '>阿里妈妈方大体</option>' +
+            '<option value="\'Alimama ShuHeiTi\', sans-serif"' + (ctFont === "'Alimama ShuHeiTi', sans-serif" ? ' selected' : '') + '>阿里妈妈数黑体</option>' +
+            '<option value="\'Douyin Sans\', sans-serif"' + (ctFont === "'Douyin Sans', sans-serif" ? ' selected' : '') + '>抖音美好体</option>' +
+            '<option value="\'Douyin Good\', sans-serif"' + (ctFont === "'Douyin Good', sans-serif" ? ' selected' : '') + '>抖音好字体</option>' +
+            '<option value="\'Black Ops One\', cursive"' + (ctFont === "'Black Ops One', cursive" ? ' selected' : '') + '>Black Ops One</option>' +
+            '<option value="\'Bungee\', cursive"' + (ctFont === "'Bungee', cursive" ? ' selected' : '') + '>Bungee</option>' +
+            '<option value="\'Permanent Marker\', cursive"' + (ctFont === "'Permanent Marker', cursive" ? ' selected' : '') + '>Permanent Marker</option>' +
+            '<option value="\'Pacifico\', cursive"' + (ctFont === "'Pacifico', cursive" ? ' selected' : '') + '>Pacifico</option>' +
+            '<option value="\'Caveat\', cursive"' + (ctFont === "'Caveat', cursive" ? ' selected' : '') + '>Caveat 手写</option>' +
+            '<option value="\'Righteous\', sans-serif"' + (ctFont === "'Righteous', sans-serif" ? ' selected' : '') + '>Righteous</option>' +
             '<option value="Georgia, serif"' + (ctFont === 'Georgia, serif' ? ' selected' : '') + '>Georgia</option>' +
             '<option value="Arial, sans-serif"' + (ctFont === 'Arial, sans-serif' ? ' selected' : '') + '>Arial</option>' +
             '</select>' +
@@ -1128,11 +1259,17 @@ document.getElementById('customTextList').addEventListener('input', function (e)
     if (fontSelect) {
         const idx = parseInt(fontSelect.dataset.idx);
         state.customTexts[idx].fontFamily = fontSelect.value;
-        draw();
+        const ct = state.customTexts[idx];
+        document.fonts.load(ct.size + 'px ' + ct.fontFamily).then(() => {
+            draw();
+        }).catch(() => {
+            draw();
+        });
     }
 });
 
 document.getElementById('addCustomTextBtn').addEventListener('click', () => {
+    const newFont = "'Noto Sans SC', sans-serif";
     state.customTexts.push({
         id: ++customTextIdCounter,
         text: '自定义文字',
@@ -1142,10 +1279,15 @@ document.getElementById('addCustomTextBtn').addEventListener('click', () => {
         color: '#ffffff',
         opacity: 0.8,
         bold: false,
-        fontFamily: "'Noto Sans SC', sans-serif"
+        fontFamily: newFont
     });
     updateCustomTextList();
-    draw();
+    // 确保字体加载完成后再绘制
+    document.fonts.load('24px ' + newFont).then(() => {
+        draw();
+    }).catch(() => {
+        draw();
+    });
 });
 
 // ===== SVG List =====
@@ -1159,6 +1301,7 @@ function updateSvgList() {
     const lang = currentLang;
     const boxSizeLabel = lang === 'zh' ? '框大小' : 'Box Size';
     const iconSizeLabel = lang === 'zh' ? '图标大小' : 'Icon Size';
+    const iconColorLabel = lang === 'zh' ? '图标颜色' : 'Icon Color';
     const radiusLabel = lang === 'zh' ? '圆角' : 'Radius';
     const boxOpacityLabel = lang === 'zh' ? '框透明度' : 'Box Opacity';
     const opacityLabel = lang === 'zh' ? '图标透明度' : 'Icon Opacity';
@@ -1233,7 +1376,13 @@ function updateSvgList() {
             '<div class="color-preview-circle" style="background:' + svg.boxColor + '"></div>' +
             '<span class="color-value-text">' + svg.boxColor.toUpperCase() + '</span>' +
             '<input type="color" class="svg-color-input" data-idx="' + idx + '" data-prop="boxColor" value="' + svg.boxColor + '">' +
-            '</div></div></div>';
+            '</div></div></div>' +
+            '<div class="form-group"><label>' + iconColorLabel + '</label>' +
+            '<div class="color-picker-wrapper svg-color-wrapper" data-idx="' + idx + '" data-prop="iconColor">' +
+            '<div class="color-preview-circle" style="background:' + (svg.iconColor || '#ffffff') + '"></div>' +
+            '<span class="color-value-text">' + (svg.iconColor || '#ffffff').toUpperCase() + '</span>' +
+            '<input type="color" class="svg-color-input" data-idx="' + idx + '" data-prop="iconColor" value="' + (svg.iconColor || '#ffffff') + '">' +
+            '</div></div>';
 
         html += '<div class="two-col">' +
             '<div class="form-group"><label>' + boxOpacityLabel + '</label>' +
@@ -1318,7 +1467,19 @@ document.getElementById('svgList').addEventListener('click', function (e) {
             const text = wrapper.querySelector('.color-value-text');
             if (preview) preview.style.background = hex;
             if (text) text.textContent = hex.toUpperCase();
-            draw();
+            
+            // 如果是图标颜色，等待新图片加载完成后再绘制
+            if (prop === 'iconColor') {
+                const svgItem = state.svgs[idx];
+                const img = getSvgImage(svgItem.svgCode, svgItem.iconColor || '#ffffff');
+                if (img.complete && img.naturalWidth > 0) {
+                    draw();
+                } else {
+                    img.onload = draw;
+                }
+            } else {
+                draw();
+            }
         });
 
         wrapper.appendChild(picker);
@@ -1392,6 +1553,25 @@ document.getElementById('svgList').addEventListener('input', function (e) {
         draw();
         return;
     }
+    
+    // 处理颜色输入变化
+    const colorInput = e.target.closest('.svg-color-input');
+    if (colorInput) {
+        const idx = parseInt(colorInput.dataset.idx);
+        const prop = colorInput.dataset.prop;
+        const hex = colorInput.value;
+        state.svgs[idx][prop] = hex;
+        
+        // 获取新颜色的图片，等待加载完成后再绘制
+        const svgItem = state.svgs[idx];
+        const img = getSvgImage(svgItem.svgCode, svgItem.iconColor || '#ffffff');
+        if (img.complete && img.naturalWidth > 0) {
+            draw();
+        } else {
+            img.onload = draw;
+        }
+        return;
+    }
 });
 
 function addSvgFromCode(code) {
@@ -1399,26 +1579,35 @@ function addSvgFromCode(code) {
         showToast('error', i18n[currentLang].invalidSvg, '');
         return false;
     }
+    
+    // 复用最后一个SVG的样式（如果有）
+    const lastSvg = state.svgs[state.svgs.length - 1];
+    const defaultSvgStyle = {
+        x: 0.5,
+        y: lastSvg ? lastSvg.y + 0.05 : 0.25,
+        size: lastSvg ? lastSvg.size : 60,
+        boxSize: lastSvg ? lastSvg.boxSize : 100,
+        boxColor: lastSvg ? lastSvg.boxColor : '#4a90d9',
+        boxOpacity: lastSvg ? lastSvg.boxOpacity : 0.9,
+        boxStyle: lastSvg ? lastSvg.boxStyle : 'solid',
+        showBox: lastSvg ? lastSvg.showBox : true,
+        boxShadow: lastSvg ? lastSvg.boxShadow : true,
+        boxBorder: lastSvg ? lastSvg.boxBorder : false,
+        boxBorderColor: lastSvg ? lastSvg.boxBorderColor : '#ffffff',
+        boxBorderWidth: lastSvg ? lastSvg.boxBorderWidth : 2,
+        boxShape: lastSvg ? lastSvg.boxShape : 'rounded',
+        radius: lastSvg ? lastSvg.radius : 20,
+        opacity: lastSvg ? lastSvg.opacity : 1,
+        iconColor: lastSvg ? lastSvg.iconColor : '#ffffff' // 图标颜色
+    };
+    
     state.svgs.push({
         id: ++svgIdCounter,
         svgCode: code,
-        x: 0.5,
-        y: 0.25,
-        size: 60,
-        boxSize: 100,
-        boxColor: '#4ade80',
-        boxOpacity: 0.3,
-        boxStyle: 'glass',
-        showBox: true,
-        boxShadow: true,
-        boxBorder: false,
-        boxBorderColor: '#ffffff',
-        boxBorderWidth: 2,
-        boxShape: 'rounded',
-        radius: 20,
-        opacity: 1
+        ...defaultSvgStyle
     });
-    const img = getSvgImage(code);
+    const iconColor = defaultSvgStyle.iconColor;
+    const img = getSvgImage(code, iconColor);
     if (img.complete && img.naturalWidth > 0) {
         draw();
     } else {
@@ -1450,6 +1639,62 @@ document.getElementById('svgFileInput').addEventListener('change', (e) => {
     e.target.value = '';
 });
 
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+async function calculateFileSizes() {
+    const quality = state.downloadQuality;
+    const formats = ['png', 'jpeg', 'webp'];
+    
+    for (const fmt of formats) {
+        const sizeEl = document.querySelector('.file-size[data-size="' + fmt + '"]');
+        if (!sizeEl) continue;
+        sizeEl.textContent = '计算中...';
+    }
+    
+    for (const fmt of formats) {
+        const sizeEl = document.querySelector('.file-size[data-size="' + fmt + '"]');
+        if (!sizeEl) continue;
+        
+        try {
+            let blob;
+            switch (fmt) {
+                case 'jpeg': {
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = canvas.width;
+                    tempCanvas.height = canvas.height;
+                    const tempCtx = tempCanvas.getContext('2d');
+                    tempCtx.fillStyle = '#ffffff';
+                    tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                    tempCtx.drawImage(canvas, 0, 0);
+                    blob = await new Promise(resolve => tempCanvas.toBlob(resolve, 'image/jpeg', quality));
+                    break;
+                }
+                case 'webp':
+                    blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/webp', quality));
+                    break;
+                case 'png':
+                default:
+                    blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                    break;
+            }
+            
+            if (blob) {
+                sizeEl.textContent = '约 ' + formatFileSize(blob.size);
+            } else {
+                sizeEl.textContent = '不支持';
+            }
+        } catch (e) {
+            sizeEl.textContent = '不支持';
+        }
+    }
+}
+
 function openDownloadModal() {
     selectedFormat = state.defaultFormat;
     const radios = document.querySelectorAll('input[name="format"]');
@@ -1461,6 +1706,7 @@ function openDownloadModal() {
     });
     updateModalQualityControl();
     document.getElementById('downloadModal').classList.add('show');
+    calculateFileSizes();
 }
 
 function closeDownloadModal() {
@@ -1489,9 +1735,12 @@ function updateModalQualityControl() {
     }
 }
 
+let sizeCalcTimer = null;
 document.getElementById('modalQuality').addEventListener('input', function () {
     state.downloadQuality = parseFloat(this.value);
     document.getElementById('modalQualityValue').textContent = Math.round(state.downloadQuality * 100) + '%';
+    clearTimeout(sizeCalcTimer);
+    sizeCalcTimer = setTimeout(calculateFileSizes, 300);
 });
 
 window.confirmDownload = function () {
@@ -1517,16 +1766,6 @@ window.confirmDownload = function () {
             case 'webp':
                 dataUrl = canvas.toDataURL('image/webp', quality);
                 ext = 'webp';
-                break;
-            case 'avif':
-                try {
-                    dataUrl = canvas.toDataURL('image/avif', quality);
-                    ext = 'avif';
-                } catch (e) {
-                    showToast('warning', 'AVIF not supported', 'Downgraded to WebP');
-                    dataUrl = canvas.toDataURL('image/webp', quality);
-                    ext = 'webp';
-                }
                 break;
             case 'png':
             default:
@@ -1594,7 +1833,12 @@ document.getElementById('importFileInput').addEventListener('change', (e) => {
             }
 
             syncAllUI();
-            initCanvas();
+            // 确保字体加载完成后再绘制
+            document.fonts.load(state.mainTitleSize + 'px ' + state.mainTitleFont).then(() => {
+                initCanvas();
+            }).catch(() => {
+                initCanvas();
+            });
             showToast('success', i18n[currentLang].importSuccess, '');
         } catch (err) {
             showToast('error', i18n[currentLang].invalidConfig, err.message);
@@ -1668,19 +1912,9 @@ function syncAllUI() {
     document.getElementById('bgDarken').value = state.bgDarken;
 
     document.getElementById('mainTitle').value = state.mainTitle;
-    document.getElementById('subTitle').value = state.subTitle;
-    document.getElementById('author').value = state.author;
     document.getElementById('mainTitleSize').value = state.mainTitleSize;
-    document.getElementById('subTitleSize').value = state.subTitleSize;
-    document.getElementById('authorSize').value = state.authorSize;
     document.getElementById('mainTitleColor').value = state.mainTitleColor;
-    document.getElementById('subTitleColor').value = state.subTitleColor;
-    document.getElementById('authorColor').value = state.authorColor;
-    document.getElementById('subTitleOpacity').value = Math.round(state.subTitleOpacity * 100);
-    document.getElementById('authorOpacity').value = Math.round(state.authorOpacity * 100);
     document.getElementById('mainTitleFontSelect').value = state.mainTitleFont;
-    document.getElementById('subTitleFontSelect').value = state.subTitleFont;
-    document.getElementById('authorFontSelect').value = state.authorFont;
 
     document.getElementById('defaultFormat').value = state.defaultFormat;
     document.getElementById('downloadQuality').value = state.downloadQuality;
@@ -1706,20 +1940,15 @@ function syncAllUI() {
     document.getElementById('meshControls').style.display = state.bgType === 'mesh' ? 'block' : 'none';
     document.getElementById('noiseControls').style.display = state.bgType === 'noise' ? 'block' : 'none';
     document.getElementById('angleControl').style.display = state.gradientType === 'linear' ? 'block' : 'none';
+    document.getElementById('randomColorBtn').style.display = state.bgType === 'gradient' ? 'flex' : 'none';
 
     updateColorBars();
     updateColorPreview('mainTitleColor', 'mainTitleColorPreview', 'mainTitleColorText');
-    updateColorPreview('subTitleColor', 'subTitleColorPreview', 'subTitleColorText');
-    updateColorPreview('authorColor', 'authorColorPreview', 'authorColorText');
     updateColorPreview('solidColor', 'solidColorPreview', 'solidColorText');
     updateColorPreview('noiseColor', 'noiseColorPreview', 'noiseColorText');
     updateColorPreview('noiseBgColor', 'noiseBgColorPreview', 'noiseBgColorText');
 
     document.getElementById('mainTitleSizeValue').textContent = state.mainTitleSize + 'px';
-    document.getElementById('subTitleSizeValue').textContent = state.subTitleSize + 'px';
-    document.getElementById('authorSizeValue').textContent = state.authorSize + 'px';
-    document.getElementById('subTitleOpacityValue').textContent = Math.round(state.subTitleOpacity * 100) + '%';
-    document.getElementById('authorOpacityValue').textContent = Math.round(state.authorOpacity * 100) + '%';
     document.getElementById('angleValue').textContent = state.gradientAngle + '°';
     document.getElementById('downloadQualityValue').textContent = Math.round(state.downloadQuality * 100) + '%';
     document.getElementById('bgBlurValue').textContent = state.bgBlur + 'px';
@@ -1757,8 +1986,6 @@ document.addEventListener('click', function(e) {
         const textId = targetId + 'Text';
         const stateKeyMap = {
             'mainTitleColor': 'mainTitleColor',
-            'subTitleColor': 'subTitleColor',
-            'authorColor': 'authorColor',
             'solidColor': 'solidColor',
             'noiseColor': 'noiseColor',
             'noiseBgColor': 'noiseBgColor'
@@ -1797,7 +2024,12 @@ document.getElementById('resetNavBtn').addEventListener('click', async () => {
 
     syncAllUI();
     updateBgImageUI();
-    initCanvas();
+    // 确保字体加载完成后再绘制
+    document.fonts.load(state.mainTitleSize + 'px ' + state.mainTitleFont).then(() => {
+        initCanvas();
+    }).catch(() => {
+        initCanvas();
+    });
     showToast('success', i18n[currentLang].resetSuccess, '');
 });
 
@@ -1810,6 +2042,7 @@ document.getElementById('bgType').addEventListener('change', e => {
     document.getElementById('imageControls').style.display = state.bgType === 'image' ? 'block' : 'none';
     document.getElementById('meshControls').style.display = state.bgType === 'mesh' ? 'block' : 'none';
     document.getElementById('noiseControls').style.display = state.bgType === 'noise' ? 'block' : 'none';
+    document.getElementById('randomColorBtn').style.display = state.bgType === 'gradient' ? 'flex' : 'none';
     draw();
 });
 
@@ -1843,11 +2076,9 @@ document.getElementById('removeColorStop').addEventListener('click', () => {
 
 
 
-['mainTitle', 'subTitle', 'author'].forEach(key => {
-    document.getElementById(key).addEventListener('input', e => {
-        state[key] = e.target.value;
-        draw();
-    });
+document.getElementById('mainTitle').addEventListener('input', e => {
+    state.mainTitle = e.target.value;
+    draw();
 });
 
 document.getElementById('mainTitleSize').addEventListener('input', e => {
@@ -1856,46 +2087,17 @@ document.getElementById('mainTitleSize').addEventListener('input', e => {
     draw();
 });
 
-document.getElementById('subTitleSize').addEventListener('input', e => {
-    state.subTitleSize = parseInt(e.target.value);
-    document.getElementById('subTitleSizeValue').textContent = e.target.value + 'px';
-    draw();
-});
-
-document.getElementById('authorSize').addEventListener('input', e => {
-    state.authorSize = parseInt(e.target.value);
-    document.getElementById('authorSizeValue').textContent = e.target.value + 'px';
-    draw();
-});
-
 document.getElementById('mainTitleFontSelect').addEventListener('change', e => {
     state.mainTitleFont = e.target.value;
-    draw();
-});
-
-document.getElementById('subTitleFontSelect').addEventListener('change', e => {
-    state.subTitleFont = e.target.value;
-    draw();
-});
-
-document.getElementById('authorFontSelect').addEventListener('change', e => {
-    state.authorFont = e.target.value;
-    draw();
+    // 确保字体加载完成后再绘制
+    document.fonts.load(state.mainTitleSize + 'px ' + state.mainTitleFont).then(() => {
+        draw();
+    }).catch(() => {
+        draw();
+    });
 });
 
 
-
-document.getElementById('subTitleOpacity').addEventListener('input', e => {
-    state.subTitleOpacity = parseInt(e.target.value) / 100;
-    document.getElementById('subTitleOpacityValue').textContent = e.target.value + '%';
-    draw();
-});
-
-document.getElementById('authorOpacity').addEventListener('input', e => {
-    state.authorOpacity = parseInt(e.target.value) / 100;
-    document.getElementById('authorOpacityValue').textContent = e.target.value + '%';
-    draw();
-});
 
 document.querySelectorAll('.platform-item').forEach(el => {
     el.addEventListener('click', () => {
@@ -1997,166 +2199,6 @@ attachColorBarPicker('colorBar1', 'color1');
 attachColorBarPicker('colorBar2', 'color2');
 attachColorBarPicker('colorBar3', 'color3');
 
-// ===== Preset Templates =====
-const presets = [
-    {
-        name: '科技风',
-        preview: '#1a1a2e',
-        config: {
-            bgType: 'gradient',
-            gradientType: 'radial',
-            color1: '#0f3460',
-            color2: '#16213e',
-            color3: '#e94560',
-            mainTitle: '科技未来',
-            mainTitleColor: '#ffffff',
-            mainTitleSize: 72,
-            subTitle: 'Technology Future',
-            subTitleColor: '#00d4ff',
-            subTitleSize: 24,
-            author: 'Tech Team',
-            authorColor: '#a0a0a0',
-            mainTitleFont: "'Noto Sans SC', sans-serif",
-            subTitleFont: "'Noto Sans SC', sans-serif",
-            authorFont: "'Noto Sans SC', sans-serif"
-        }
-    },
-    {
-        name: '文艺风',
-        preview: '#f5e6d3',
-        config: {
-            bgType: 'gradient',
-            gradientType: 'linear',
-            color1: '#d4a574',
-            color2: '#c9a962',
-            color3: '#8b7355',
-            mainTitle: '诗意年华',
-            mainTitleColor: '#4a3728',
-            mainTitleSize: 64,
-            subTitle: 'Poetic Years',
-            subTitleColor: '#6b5344',
-            subTitleSize: 22,
-            author: '文艺青年',
-            authorColor: '#8b7355',
-            mainTitleFont: "'Noto Serif SC', serif",
-            subTitleFont: "'Noto Serif SC', serif",
-            authorFont: "'Noto Serif SC', serif"
-        }
-    },
-    {
-        name: '商务风',
-        preview: '#2c3e50',
-        config: {
-            bgType: 'solid',
-            solidColor: '#1a252f',
-            mainTitle: '商业精英',
-            mainTitleColor: '#ffffff',
-            mainTitleSize: 70,
-            subTitle: 'Business Elite',
-            subTitleColor: '#3498db',
-            subTitleSize: 26,
-            author: 'CEO',
-            authorColor: '#95a5a6',
-            mainTitleFont: "'Noto Sans SC', sans-serif",
-            subTitleFont: "'Noto Sans SC', sans-serif",
-            authorFont: "'Noto Sans SC', sans-serif"
-        }
-    },
-    {
-        name: '极简风',
-        preview: '#f8f9fa',
-        config: {
-            bgType: 'solid',
-            solidColor: '#ffffff',
-            mainTitle: '简约之美',
-            mainTitleColor: '#2d3436',
-            mainTitleSize: 60,
-            subTitle: 'Simplicity',
-            subTitleColor: '#636e72',
-            subTitleSize: 24,
-            author: 'Designer',
-            authorColor: '#b2bec3',
-            mainTitleFont: "'Smiley Sans', sans-serif",
-            subTitleFont: "'Smiley Sans', sans-serif",
-            authorFont: "'Smiley Sans', sans-serif"
-        }
-    },
-    {
-        name: '暗黑风',
-        preview: '#0d0d0d',
-        config: {
-            bgType: 'gradient',
-            gradientType: 'radial',
-            color1: '#1a1a1a',
-            color2: '#0d0d0d',
-            color3: '#2d2d2d',
-            mainTitle: '暗夜行者',
-            mainTitleColor: '#ff6b6b',
-            mainTitleSize: 72,
-            subTitle: 'Dark Walker',
-            subTitleColor: '#ffd93d',
-            subTitleSize: 24,
-            author: 'Shadow',
-            authorColor: '#636e72',
-            mainTitleFont: "'Noto Sans SC', sans-serif",
-            subTitleFont: "'Noto Sans SC', sans-serif",
-            authorFont: "'Noto Sans SC', sans-serif"
-        }
-    },
-    {
-        name: '清新风',
-        preview: '#e8f5e9',
-        config: {
-            bgType: 'gradient',
-            gradientType: 'linear',
-            color1: '#a5d6a7',
-            color2: '#81c784',
-            color3: '#4caf50',
-            mainTitle: '春日暖阳',
-            mainTitleColor: '#1b5e20',
-            mainTitleSize: 64,
-            subTitle: 'Spring Sunshine',
-            subTitleColor: '#388e3c',
-            subTitleSize: 24,
-            author: 'Nature Lover',
-            authorColor: '#66bb6a',
-            mainTitleFont: "'Ma Shan Zheng', cursive",
-            subTitleFont: "'Ma Shan Zheng', cursive",
-            authorFont: "'Ma Shan Zheng', cursive"
-        }
-    }
-];
-
-function initPresets() {
-    const presetList = document.getElementById('presetList');
-    if (!presetList) return;
-    
-    presetList.innerHTML = presets.map((preset, idx) => `
-        <div class="preset-item" data-idx="${idx}" style="--preview-color: ${preset.preview}">
-            <div class="preset-preview" style="background: ${preset.preview}"></div>
-            <span>${preset.name}</span>
-        </div>
-    `).join('');
-    
-    presetList.addEventListener('click', (e) => {
-        const item = e.target.closest('.preset-item');
-        if (!item) return;
-        
-        const idx = parseInt(item.dataset.idx);
-        const preset = presets[idx];
-        
-        Object.keys(preset.config).forEach(key => {
-            if (preset.config[key] !== undefined) {
-                state[key] = preset.config[key];
-            }
-        });
-        
-        syncAllUI();
-        draw();
-        showToast('success', '已应用模板: ' + preset.name, '');
-    });
-}
-
 // ===== Keyboard Shortcuts =====
 function initShortcuts() {
     document.addEventListener('keydown', (e) => {
@@ -2189,8 +2231,12 @@ function initShortcuts() {
 }
 
 // ===== Init =====
-initPresets();
 initShortcuts();
 syncAllUI();
 updateBgImageUI();
-initCanvas();
+// 确保字体加载完成后再初始化画布
+document.fonts.ready.then(() => {
+    initCanvas();
+}).catch(() => {
+    initCanvas();
+});
