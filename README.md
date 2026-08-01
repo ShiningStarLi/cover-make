@@ -2,6 +2,8 @@
 
 一个基于 Web 的封面图片生成工具，支持多种平台尺寸、丰富的背景效果、自定义文字和图标，帮助用户快速创建精美的博客封面、社交媒体封面等。
 
+![CoverMake](https://img.eucalyptus.cc/images/covermake.png)
+
 地址：https://cover.eucalyptus.cc
 
 ## ✨ 功能特性
